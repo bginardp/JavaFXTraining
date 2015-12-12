@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.factuapp.model.jpa.SerieJPA;
+import es.palmademallorca.factuapp.model.jpa.Serie;
 
 public class SeriesModelJpa implements ISeriesModel {
 
@@ -19,14 +19,14 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public SerieJPA getSeriePorId(Long id) {
-        return entityManager.find(SerieJPA.class, id);
+    public Serie getSeriePorId(Long id) {
+        return entityManager.find(Serie.class, id);
     }
     @Override
-    public List<SerieJPA> getSeries() {
-    	TypedQuery<SerieJPA> query =
-        		entityManager.createNamedQuery("Serie.findAll", SerieJPA.class);
-        List<SerieJPA> SerieJPAs = new ArrayList<>();
+    public List<Serie> getSeries() {
+    	TypedQuery<Serie> query =
+        		entityManager.createNamedQuery("Serie.findAll", Serie.class);
+        List<Serie> SerieJPAs = new ArrayList<>();
         //String jpql = "SELECT f FROM SerieJPA f";
         //TypedQuery<SerieJPA> query = entityManager.createQuery(jpql, SerieJPA.class);
         SerieJPAs.addAll(query.getResultList());
@@ -34,7 +34,7 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int insertar(SerieJPA registro) {
+    public int insertar(Serie registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -50,7 +50,7 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int modificar(SerieJPA registro) {
+    public int modificar(Serie registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -66,11 +66,11 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int eliminar(SerieJPA registro) {
+    public int eliminar(Serie registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            SerieJPA SerieJPAAEliminar = entityManager.getReference(SerieJPA.class, registro.getId());
+            Serie SerieJPAAEliminar = entityManager.getReference(Serie.class, registro.getId());
             entityManager.remove(SerieJPAAEliminar);
             transaction.commit();
             return EXITO;
@@ -83,12 +83,12 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int eliminar(List<SerieJPA> lista) {
+    public int eliminar(List<Serie> lista) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (SerieJPA fila : lista) {
-                SerieJPA SerieJPAAEliminar = entityManager.getReference(SerieJPA.class, fila.getId());
+            for (Serie fila : lista) {
+                Serie SerieJPAAEliminar = entityManager.getReference(Serie.class, fila.getId());
                 entityManager.remove(SerieJPAAEliminar);
             }
             transaction.commit();

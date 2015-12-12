@@ -17,11 +17,11 @@ import javafx.beans.property.StringProperty;
 @Table(name="empresas")
 
 @NamedQueries ({
-	@NamedQuery(name="Empresa.findAll", query="SELECT e FROM EmpresaJPA e"),
-    @NamedQuery(name="Empresa.findByDem", query="SELECT e FROM EmpresaJPA e WHERE e.dem like :dem")
+	@NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e"),
+    @NamedQuery(name="Empresa.findByDem", query="SELECT e FROM Empresa e WHERE e.dem like :dem")
 })
 
-public class EmpresaJPA implements Serializable {
+public class Empresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private LongProperty id= new SimpleLongProperty();;
 	private StringProperty dec= new SimpleStringProperty();
@@ -34,7 +34,7 @@ public class EmpresaJPA implements Serializable {
 	private StringProperty tel= new SimpleStringProperty();
 	private StringProperty web= new SimpleStringProperty();
 
-	public EmpresaJPA() {
+	public Empresa() {
 	}
 
 

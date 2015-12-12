@@ -17,10 +17,10 @@ import java.util.List;
 @Entity
 @Table(name="productos")
 @NamedQueries ({
-@NamedQuery(name="Producto.findAll", query="SELECT p FROM ProductoJPA p"),
-@NamedQuery(name="Producto.findByDem", query="SELECT p FROM ProductoJPA p WHERE p.dem like :dem")
+@NamedQuery(name="Producto.findAll", query="SELECT p FROM Producto p"),
+@NamedQuery(name="Producto.findByDem", query="SELECT p FROM Producto p WHERE p.dem like :dem")
 })
-public class ProductoJPA implements Serializable {
+public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private StringProperty id= new SimpleStringProperty();
    	private StringProperty dem = new SimpleStringProperty();
@@ -28,7 +28,7 @@ public class ProductoJPA implements Serializable {
 
 	private List<Factureslin> factureslins;
 
-	public ProductoJPA() {
+	public Producto() {
 	}
 
 
@@ -69,29 +69,12 @@ public class ProductoJPA implements Serializable {
 		return hbl;
 	}
 
-	//bi-directional many-to-one association to Factureslin
-	@OneToMany(mappedBy="producto")
-	public List<Factureslin> getFactureslins() {
-		return this.factureslins;
-	}
 
 	public void setFactureslins(List<Factureslin> factureslins) {
 		this.factureslins = factureslins;
 	}
 
-	public Factureslin addFactureslin(Factureslin factureslin) {
-		getFactureslins().add(factureslin);
-		factureslin.setProducto(this);
 
-		return factureslin;
-	}
-
-	public Factureslin removeFactureslin(Factureslin factureslin) {
-		getFactureslins().remove(factureslin);
-		factureslin.setProducto(null);
-
-		return factureslin;
-	}
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

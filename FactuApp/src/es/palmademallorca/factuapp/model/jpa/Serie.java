@@ -15,15 +15,15 @@ import javafx.beans.property.StringProperty;
 
 @Table(name="serie")
 
-@NamedQuery(name = "Serie.findAll", query = "SELECT s FROM SerieJPA s")
-public class SerieJPA implements Serializable {
+@NamedQuery(name = "Serie.findAll", query = "SELECT s FROM Serie s")
+public class Serie implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private StringProperty id=new SimpleStringProperty();
 	private StringProperty dec=new SimpleStringProperty();
 	private StringProperty hbl=new SimpleStringProperty();
-	private EmpresaJPA empresa;
+	private Empresa empresa;
 
-	public SerieJPA() {
+	public Serie() {
 	}
 
 	@Id
@@ -62,11 +62,11 @@ public class SerieJPA implements Serializable {
 
 	// bi-directional many-to-one association to Empresa
 	@ManyToOne
-	public EmpresaJPA getEmpresa() {
+	public Empresa getEmpresa() {
 		return this.empresa;
 	}
 
-	public void setEmpresa(EmpresaJPA empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 

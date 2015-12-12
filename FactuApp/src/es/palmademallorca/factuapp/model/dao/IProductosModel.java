@@ -2,7 +2,7 @@ package es.palmademallorca.factuapp.model.dao;
 
 import java.util.List;
 
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 
 public interface IProductosModel {
 
@@ -10,15 +10,15 @@ public interface IProductosModel {
 
     public static final int FALLO = -1;
 
-    public ProductoJPA getProductoPorId(String id);
+    public Producto getProductoPorId(String id);
 
-    public List<ProductoJPA> getProductos();
-    public List<ProductoJPA> getProductosPorDem(String valor);
-    public int insertar(ProductoJPA producto);
+    public List<Producto> getProductos();
+    public List<Producto> getProductosPorDem(String valor);
+    public int insertar(Producto producto);
 
-    public int modificar(ProductoJPA producto);
+    public int modificar(Producto producto);
 
-    public int eliminar(ProductoJPA producto);
+    public int eliminar(Producto producto);
 
-    public int eliminar(List<ProductoJPA> producto);
+    public int eliminar(List<Producto> producto);
 }

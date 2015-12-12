@@ -35,8 +35,8 @@ import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.factuapp.model.dao.IClientesModel;
 import es.palmademallorca.factuapp.model.dao.IProductosModel;
 import es.palmademallorca.factuapp.model.dao.ProductosModelJpa;
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,13 +50,13 @@ public class ProductoController implements Initializable, ControlledScreen {
 	private IProductosModel model;
 
 	@FXML
-	private ObservableList<ProductoJPA> productosList=FXCollections.observableArrayList();
+	private ObservableList<Producto> productosList=FXCollections.observableArrayList();
 	@FXML
-	private TableView<ProductoJPA> tableView;
+	private TableView<Producto> tableView;
 	@FXML
-	private TableColumn<ProductoJPA, String> identificadorCol;
+	private TableColumn<Producto, String> identificadorCol;
 	@FXML
-	private TableColumn<ProductoJPA, String> descripcionCol;
+	private TableColumn<Producto, String> descripcionCol;
 	@FXML
 	private Button btAddProducto;
 	@FXML
@@ -188,7 +188,7 @@ public class ProductoController implements Initializable, ControlledScreen {
 		descripcionCol.setCellValueFactory(cellData -> cellData.getValue().demProperty());
 		identificadorCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 	}
-	private void showDetailsProducto (ProductoJPA row) {
+	private void showDetailsProducto (Producto row) {
 		btAddProducto.setDisable(true);
 		btEliminarProducto.setDisable(false);
 		btModificarProducto.setDisable(false);
@@ -286,7 +286,7 @@ public class ProductoController implements Initializable, ControlledScreen {
 
 	@FXML
 	private void addProducto(ActionEvent event) {
-		ProductoJPA producto=new ProductoJPA();
+		Producto producto=new Producto();
         producto.setId(tfIdentificador.getText());
 		producto.setDem(tfNombreProducto.getText());
 		model.insertar(producto);
@@ -324,7 +324,7 @@ public class ProductoController implements Initializable, ControlledScreen {
 	@FXML
 	private void modificarProducto(ActionEvent event) {
 
-		ProductoJPA producto = tableView.getSelectionModel().getSelectedItem();
+		Producto producto = tableView.getSelectionModel().getSelectedItem();
 		producto.setDem(tfNombreProducto.getText());
 		model.modificar(producto);
 

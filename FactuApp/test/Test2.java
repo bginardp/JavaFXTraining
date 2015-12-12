@@ -15,14 +15,14 @@ import es.palmademallorca.factuapp.model.dao.ISeriesModel;
 import es.palmademallorca.factuapp.model.dao.ITipivaModel;
 import es.palmademallorca.factuapp.model.dao.SeriesModelJpa;
 import es.palmademallorca.factuapp.model.dao.TipivaModel;
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
-import es.palmademallorca.factuapp.model.jpa.EmpresaJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.jpa.Empresa;
 import es.palmademallorca.factuapp.model.jpa.Factura;
 import es.palmademallorca.factuapp.model.jpa.Factureslin;
 import es.palmademallorca.factuapp.model.jpa.Formaspago;
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
-import es.palmademallorca.factuapp.model.jpa.SerieJPA;
-import es.palmademallorca.factuapp.model.jpa.TipivaJPA;
+import es.palmademallorca.factuapp.model.jpa.Producto;
+import es.palmademallorca.factuapp.model.jpa.Serie;
+import es.palmademallorca.factuapp.model.jpa.Tipiva;
 import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
 
 public class Test2 {
@@ -87,13 +87,13 @@ public class Test2 {
 
 
 
-		EntityManagerProvider.printAttributesSize(TipivaJPA.class);
+		EntityManagerProvider.printAttributesSize(Tipiva.class);
 
 		ITipivaModel model1 = new TipivaModel(em);
-		List<TipivaJPA> lista1 = model1.getTipiva();
+		List<Tipiva> lista1 = model1.getTipiva();
 
-		for (Iterator<TipivaJPA> iterator = lista1.iterator(); iterator.hasNext();) {
-			TipivaJPA fila = iterator.next();
+		for (Iterator<Tipiva> iterator = lista1.iterator(); iterator.hasNext();) {
+			Tipiva fila = iterator.next();
 			System.out.println(fila.toString());
 
 		}

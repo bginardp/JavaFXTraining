@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 
 public class ClientesModelJpa implements IClientesModel {
 
@@ -20,20 +20,20 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public ClienteJPA getClientePorId(Long id) {
-        return entityManager.find(ClienteJPA.class, id);
+    public Cliente getClientePorId(Long id) {
+        return entityManager.find(Cliente.class, id);
     }
     @Override
-    public List<ClienteJPA> getClientes() {
-        List<ClienteJPA> ClienteJPAs = new ArrayList<>();
+    public List<Cliente> getClientes() {
+        List<Cliente> ClienteJPAs = new ArrayList<>();
         String jpql = "SELECT f FROM ClienteJPA f";
-        TypedQuery<ClienteJPA> query = entityManager.createQuery(jpql, ClienteJPA.class);
+        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
         ClienteJPAs.addAll(query.getResultList());
         return ClienteJPAs;
     }
 
     @Override
-    public int insertar(ClienteJPA ClienteJPA) {
+    public int insertar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -49,7 +49,7 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int modificar(ClienteJPA ClienteJPA) {
+    public int modificar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -65,11 +65,11 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int eliminar(ClienteJPA ClienteJPA) {
+    public int eliminar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            ClienteJPA ClienteJPAAEliminar = entityManager.getReference(ClienteJPA.class, ClienteJPA.getId());
+            Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
             entityManager.remove(ClienteJPAAEliminar);
             transaction.commit();
             return EXITO;
@@ -82,12 +82,12 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int eliminar(List<ClienteJPA> ClienteJPAs) {
+    public int eliminar(List<Cliente> ClienteJPAs) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (ClienteJPA ClienteJPA : ClienteJPAs) {
-                ClienteJPA ClienteJPAAEliminar = entityManager.getReference(ClienteJPA.class, ClienteJPA.getId());
+            for (Cliente ClienteJPA : ClienteJPAs) {
+                Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
                 entityManager.remove(ClienteJPAAEliminar);
             }
             transaction.commit();
@@ -101,11 +101,11 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
 	@Override
-	public List<ClienteJPA> getClientesPorNombre(String valor) {
-		TypedQuery<ClienteJPA> query =
-        		entityManager.createNamedQuery("Cliente.findByNom", ClienteJPA.class);
+	public List<Cliente> getClientesPorNombre(String valor) {
+		TypedQuery<Cliente> query =
+        		entityManager.createNamedQuery("Cliente.findByNom", Cliente.class);
     	query.setParameter("nom", "%" + valor + "%");
-        List<ClienteJPA> clientes = query.getResultList();
+        List<Cliente> clientes = query.getResultList();
         return clientes;
 	}
 

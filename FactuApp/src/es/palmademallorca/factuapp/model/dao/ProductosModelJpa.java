@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 
 public class ProductosModelJpa implements IProductosModel {
 
@@ -18,28 +18,28 @@ public class ProductosModelJpa implements IProductosModel {
     }
 
     @Override
-    public ProductoJPA getProductoPorId(String id) {
-        return entityManager.find(ProductoJPA.class, id);
+    public Producto getProductoPorId(String id) {
+        return entityManager.find(Producto.class, id);
     }
 
     @Override
-    public List<ProductoJPA> getProductosPorDem(String valor) {
-    	TypedQuery<ProductoJPA> query =
-        		entityManager.createNamedQuery("Producto.findByDem", ProductoJPA.class);
+    public List<Producto> getProductosPorDem(String valor) {
+    	TypedQuery<Producto> query =
+        		entityManager.createNamedQuery("Producto.findByDem", Producto.class);
     	query.setParameter("dem", "%" + valor + "%");
-        List<ProductoJPA> productos = query.getResultList();
+        List<Producto> productos = query.getResultList();
         return productos;
     }
     @Override
-    public List<ProductoJPA> getProductos() {
-        TypedQuery<ProductoJPA> query =
-        		entityManager.createNamedQuery("Producto.findAll", ProductoJPA.class);
-        List<ProductoJPA> productos = query.getResultList();
+    public List<Producto> getProductos() {
+        TypedQuery<Producto> query =
+        		entityManager.createNamedQuery("Producto.findAll", Producto.class);
+        List<Producto> productos = query.getResultList();
         return productos;
     }
 
     @Override
-    public int insertar(ProductoJPA producto) {
+    public int insertar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -55,7 +55,7 @@ public class ProductosModelJpa implements IProductosModel {
     }
 
     @Override
-    public int modificar(ProductoJPA producto) {
+    public int modificar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -71,11 +71,11 @@ public class ProductosModelJpa implements IProductosModel {
     }
 
     @Override
-    public int eliminar(ProductoJPA producto) {
+    public int eliminar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-        	ProductoJPA AEliminar = entityManager.getReference(ProductoJPA.class, producto.getId());
+        	Producto AEliminar = entityManager.getReference(Producto.class, producto.getId());
             entityManager.remove(AEliminar);
             transaction.commit();
             return EXITO;
@@ -88,12 +88,12 @@ public class ProductosModelJpa implements IProductosModel {
     }
 
     @Override
-    public int eliminar(List<ProductoJPA> productos) {
+    public int eliminar(List<Producto> productos) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (ProductoJPA ProductoJPA : productos) {
-            	ProductoJPA AEliminar = entityManager.getReference(ProductoJPA.class, ProductoJPA.getId());
+            for (Producto ProductoJPA : productos) {
+            	Producto AEliminar = entityManager.getReference(Producto.class, ProductoJPA.getId());
                 entityManager.remove(AEliminar);
             }
             transaction.commit();

@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.factuapp.model.dao.IClientesModel;
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
 import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
 
 public class Test1 {
 	// @PersistenceContext(unitName = "factuPU")
@@ -31,10 +31,10 @@ public class Test1 {
 	public void test() {
 
 		IClientesModel model = new ClientesModelJpa(em);
-		List<ClienteJPA> clientes= model.getClientes();
+		List<Cliente> clientes= model.getClientes();
 
-	    for (Iterator<ClienteJPA> iterator = clientes.iterator(); iterator.hasNext();) {
-			ClienteJPA clienteJPA = iterator.next();
+	    for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {
+			Cliente clienteJPA = iterator.next();
 			System.out.println(clienteJPA.getId() + " " + clienteJPA.getCif() + " " + clienteJPA.getNom());
 
 		}

@@ -2,8 +2,8 @@ package es.palmademallorca.factuapp.model.dao;
 
 import java.util.List;
 
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 
 public interface IClientesModel {
 
@@ -11,15 +11,15 @@ public interface IClientesModel {
 
     public static final int FALLO = -1;
 
-    public ClienteJPA getClientePorId(Long id);
-    public List<ClienteJPA> getClientesPorNombre(String valor);
-    public List<ClienteJPA> getClientes();
+    public Cliente getClientePorId(Long id);
+    public List<Cliente> getClientesPorNombre(String valor);
+    public List<Cliente> getClientes();
 
-    public int insertar(ClienteJPA cliente);
+    public int insertar(Cliente cliente);
 
-    public int modificar(ClienteJPA cliente);
+    public int modificar(Cliente cliente);
 
-    public int eliminar(ClienteJPA cliente);
+    public int eliminar(Cliente cliente);
 
-    public int eliminar(List<ClienteJPA> cliente);
+    public int eliminar(List<Cliente> cliente);
 }

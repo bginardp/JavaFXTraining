@@ -2,7 +2,7 @@ package es.palmademallorca.factuapp.model.dao;
 
 import java.util.List;
 
-import es.palmademallorca.factuapp.model.jpa.TipivaJPA;
+import es.palmademallorca.factuapp.model.jpa.Tipiva;
 
 public interface ITipivaModel {
 
@@ -10,15 +10,15 @@ public interface ITipivaModel {
 
     public static final int FALLO = -1;
 
-    public TipivaJPA getTipivaPorId(Long id);
+    public Tipiva getTipivaPorId(Long id);
 
-    public List<TipivaJPA> getTipiva();
+    public List<Tipiva> getTipiva();
 
-    public int insertar(TipivaJPA tipiva);
+    public int insertar(Tipiva tipiva);
 
-    public int modificar(TipivaJPA tipiva);
+    public int modificar(Tipiva tipiva);
 
-    public int eliminar(TipivaJPA tipiva);
+    public int eliminar(Tipiva tipiva);
 
-    public int eliminar(List<TipivaJPA> lista);
+    public int eliminar(List<Tipiva> lista);
 }

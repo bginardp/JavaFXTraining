@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.factuapp.model.jpa.EmpresaJPA;
+import es.palmademallorca.factuapp.model.jpa.Empresa;
 
 public class EmpresasModelJpa implements IEmpresasModel {
 
@@ -19,14 +19,14 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public EmpresaJPA getEmpresaPorId(Long id) {
-        return entityManager.find(EmpresaJPA.class, id);
+    public Empresa getEmpresaPorId(Long id) {
+        return entityManager.find(Empresa.class, id);
     }
     @Override
-    public List<EmpresaJPA> getEmpresas() {
-    	TypedQuery<EmpresaJPA> query =
-        		entityManager.createNamedQuery("Empresa.findAll", EmpresaJPA.class);
-        List<EmpresaJPA> EmpresaJPAs = new ArrayList<>();
+    public List<Empresa> getEmpresas() {
+    	TypedQuery<Empresa> query =
+        		entityManager.createNamedQuery("Empresa.findAll", Empresa.class);
+        List<Empresa> EmpresaJPAs = new ArrayList<>();
         //String jpql = "SELECT f FROM EmpresaJPA f";
         //TypedQuery<EmpresaJPA> query = entityManager.createQuery(jpql, EmpresaJPA.class);
         EmpresaJPAs.addAll(query.getResultList());
@@ -34,7 +34,7 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public int insertar(EmpresaJPA EmpresaJPA) {
+    public int insertar(Empresa EmpresaJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -50,7 +50,7 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public int modificar(EmpresaJPA EmpresaJPA) {
+    public int modificar(Empresa EmpresaJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -66,11 +66,11 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public int eliminar(EmpresaJPA EmpresaJPA) {
+    public int eliminar(Empresa EmpresaJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            EmpresaJPA EmpresaJPAAEliminar = entityManager.getReference(EmpresaJPA.class, EmpresaJPA.getId());
+            Empresa EmpresaJPAAEliminar = entityManager.getReference(Empresa.class, EmpresaJPA.getId());
             entityManager.remove(EmpresaJPAAEliminar);
             transaction.commit();
             return EXITO;
@@ -83,12 +83,12 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public int eliminar(List<EmpresaJPA> EmpresaJPAs) {
+    public int eliminar(List<Empresa> EmpresaJPAs) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (EmpresaJPA EmpresaJPA : EmpresaJPAs) {
-                EmpresaJPA EmpresaJPAAEliminar = entityManager.getReference(EmpresaJPA.class, EmpresaJPA.getId());
+            for (Empresa EmpresaJPA : EmpresaJPAs) {
+                Empresa EmpresaJPAAEliminar = entityManager.getReference(Empresa.class, EmpresaJPA.getId());
                 entityManager.remove(EmpresaJPAAEliminar);
             }
             transaction.commit();
@@ -102,11 +102,11 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
 	@Override
-	public List<EmpresaJPA> getEmpresasPorNombre(String valor) {
-		TypedQuery<EmpresaJPA> query =
-        		entityManager.createNamedQuery("Empresa.findByDem", EmpresaJPA.class);
+	public List<Empresa> getEmpresasPorNombre(String valor) {
+		TypedQuery<Empresa> query =
+        		entityManager.createNamedQuery("Empresa.findByDem", Empresa.class);
     	query.setParameter("dem", "%" + valor + "%");
-        List<EmpresaJPA> resultat = query.getResultList();
+        List<Empresa> resultat = query.getResultList();
         return resultat;
 	}
 

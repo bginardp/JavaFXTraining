@@ -24,8 +24,8 @@ import java.util.List;
 @Entity
 @Table(name="tipiva")
 
-@NamedQuery(name="Tipiva.findAll", query="SELECT t FROM TipivaJPA t")
-public class TipivaJPA implements Serializable {
+@NamedQuery(name="Tipiva.findAll", query="SELECT t FROM Tipiva t")
+public class Tipiva implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private LongProperty id=new SimpleLongProperty();
 	private LongProperty anyo=new SimpleLongProperty();
@@ -35,7 +35,7 @@ public class TipivaJPA implements Serializable {
 	private SimpleObjectProperty<BigDecimal> requiv = new SimpleObjectProperty();
 	private StringProperty tipo=new SimpleStringProperty();
 
-	public TipivaJPA() {
+	public Tipiva() {
 	}
 
 

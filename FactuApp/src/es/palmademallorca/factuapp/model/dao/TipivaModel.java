@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.factuapp.model.jpa.TipivaJPA;
+import es.palmademallorca.factuapp.model.jpa.Tipiva;
 
 public class TipivaModel implements ITipivaModel {
 
@@ -19,14 +19,14 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public TipivaJPA getTipivaPorId(Long id) {
-        return entityManager.find(TipivaJPA.class, id);
+    public Tipiva getTipivaPorId(Long id) {
+        return entityManager.find(Tipiva.class, id);
     }
     @Override
-    public List<TipivaJPA> getTipiva() {
-    	TypedQuery<TipivaJPA> query =
-        		entityManager.createNamedQuery("Tipiva.findAll", TipivaJPA.class);
-        List<TipivaJPA> TipivaJPAs = new ArrayList<>();
+    public List<Tipiva> getTipiva() {
+    	TypedQuery<Tipiva> query =
+        		entityManager.createNamedQuery("Tipiva.findAll", Tipiva.class);
+        List<Tipiva> TipivaJPAs = new ArrayList<>();
         //String jpql = "SELECT f FROM TipivaJPA f";
         //TypedQuery<TipivaJPA> query = entityManager.createQuery(jpql, TipivaJPA.class);
         TipivaJPAs.addAll(query.getResultList());
@@ -34,7 +34,7 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int insertar(TipivaJPA registro) {
+    public int insertar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -50,7 +50,7 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int modificar(TipivaJPA registro) {
+    public int modificar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -66,11 +66,11 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int eliminar(TipivaJPA registro) {
+    public int eliminar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            TipivaJPA TipivaJPAAEliminar = entityManager.getReference(TipivaJPA.class, registro.getId());
+            Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, registro.getId());
             entityManager.remove(TipivaJPAAEliminar);
             transaction.commit();
             return EXITO;
@@ -83,12 +83,12 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int eliminar(List<TipivaJPA> lista) {
+    public int eliminar(List<Tipiva> lista) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (TipivaJPA fila : lista) {
-                TipivaJPA TipivaJPAAEliminar = entityManager.getReference(TipivaJPA.class, fila.getId());
+            for (Tipiva fila : lista) {
+                Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, fila.getId());
                 entityManager.remove(TipivaJPAAEliminar);
             }
             transaction.commit();

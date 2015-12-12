@@ -20,7 +20,6 @@ public class Formaspago implements Serializable {
 	private LongProperty id=new SimpleLongProperty();
 	private StringProperty dem=new SimpleStringProperty();
 	private StringProperty hbl=new SimpleStringProperty();
-	// private List<Factura> facturas;
 
 	public Formaspago() {
 	}
@@ -61,30 +60,4 @@ public class Formaspago implements Serializable {
 		return sb.toString();
 	}
 
-
-	/*
-	//bi-directional many-to-one association to Factura
-	@OneToMany(mappedBy="formaspago")
-	public List<Factura> getFacturas() {
-		return this.facturas;
-	}
-
-	public void setFacturas(List<Factura> facturas) {
-		this.facturas = facturas;
-	}
-
-	public Factura addFactura(Factura factura) {
-		getFacturas().add(factura);
-		factura.setFormaspago(this);
-
-		return factura;
-	}
-
-	public Factura removeFactura(Factura factura) {
-		getFacturas().remove(factura);
-		factura.setFormaspago(null);
-
-		return factura;
-	}
-*/
 }

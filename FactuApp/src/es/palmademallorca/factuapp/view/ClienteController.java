@@ -15,8 +15,8 @@ import es.palmademallorca.factuapp.ControlesBasicos;
 import es.palmademallorca.factuapp.MainApp;
 import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.factuapp.model.dao.IClientesModel;
-import es.palmademallorca.factuapp.model.jpa.ClienteJPA;
-import es.palmademallorca.factuapp.model.jpa.ProductoJPA;
+import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.jpa.Producto;
 import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,15 +40,15 @@ public class ClienteController implements Initializable, ControlledScreen {
 	private static EntityManager em = EntityManagerProvider.getProvider().getEntityManager();
 	private IClientesModel model;
 	@FXML
-	private ObservableList<ClienteJPA> clientesList = FXCollections.observableArrayList();
+	private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
 	@FXML
-	private TableView<ClienteJPA> tableView;
+	private TableView<Cliente> tableView;
 	@FXML
-	private TableColumn<ClienteJPA, Long> identificadorCol;
+	private TableColumn<Cliente, Long> identificadorCol;
 	@FXML
-	private TableColumn<ClienteJPA, String> nombreCol;
+	private TableColumn<Cliente, String> nombreCol;
 	@FXML
-	private TableColumn<ClienteJPA, String> cifCol;
+	private TableColumn<Cliente, String> cifCol;
 	@FXML
 	private TextField tfIdentificador;
 	@FXML
@@ -117,7 +117,7 @@ public class ClienteController implements Initializable, ControlledScreen {
 		identificadorCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
 	}
 
-	private void showDetailsClient(ClienteJPA row) {
+	private void showDetailsClient(Cliente row) {
 
 		if (row != null) {
 			btInsertar.setDisable(true);
@@ -178,7 +178,7 @@ public class ClienteController implements Initializable, ControlledScreen {
 		if (result.get() == ButtonType.OK){
 			int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 			// esborra els items de la fila seleccionada
-			ClienteJPA cliSeleccionado = tableView.getSelectionModel().getSelectedItem();
+			Cliente cliSeleccionado = tableView.getSelectionModel().getSelectedItem();
 			// borramos fila de la table view
 			tableView.getItems().remove(selectedIndex);
 			// ClienteJPA cliente = em.find(ClienteJPA.class, seleccionado.getId());
@@ -200,7 +200,7 @@ public class ClienteController implements Initializable, ControlledScreen {
 
 	@FXML
 	private void add(ActionEvent event) {
-		ClienteJPA cliente = new ClienteJPA();
+		Cliente cliente = new Cliente();
 		cliente.setCif(tfCif.getText());
 		cliente.setDireccion(tfDireccion.getText());
 		cliente.setEmail(tfEmail.getText());
@@ -218,7 +218,7 @@ public class ClienteController implements Initializable, ControlledScreen {
 	@FXML
 	private void modificar(ActionEvent event) {
 
-		ClienteJPA cliente = tableView.getSelectionModel().getSelectedItem();
+		Cliente cliente = tableView.getSelectionModel().getSelectedItem();
 		cliente.setCif(tfCif.getText());
 		cliente.setDireccion(tfDireccion.getText());
 		cliente.setEmail(tfEmail.getText());
@@ -242,35 +242,35 @@ public class ClienteController implements Initializable, ControlledScreen {
 
 	}
 
-	public ObservableList<ClienteJPA> getClientesList() {
+	public ObservableList<Cliente> getClientesList() {
 		return clientesList;
 	}
 
-	public void setClientesList(ObservableList<ClienteJPA> clientesList) {
+	public void setClientesList(ObservableList<Cliente> clientesList) {
 		this.clientesList = clientesList;
 	}
 
-	public TableView<ClienteJPA> getTableView() {
+	public TableView<Cliente> getTableView() {
 		return tableView;
 	}
 
-	public void setTableView(TableView<ClienteJPA> tableView) {
+	public void setTableView(TableView<Cliente> tableView) {
 		this.tableView = tableView;
 	}
 
-	public TableColumn<ClienteJPA, Long> getIdentificadorCol() {
+	public TableColumn<Cliente, Long> getIdentificadorCol() {
 		return identificadorCol;
 	}
 
-	public void setIdentificadorCol(TableColumn<ClienteJPA, Long> identificadorCol) {
+	public void setIdentificadorCol(TableColumn<Cliente, Long> identificadorCol) {
 		this.identificadorCol = identificadorCol;
 	}
 
-	public TableColumn<ClienteJPA, String> getNombreCol() {
+	public TableColumn<Cliente, String> getNombreCol() {
 		return nombreCol;
 	}
 
-	public void setNombreCol(TableColumn<ClienteJPA, String> nombreCol) {
+	public void setNombreCol(TableColumn<Cliente, String> nombreCol) {
 		this.nombreCol = nombreCol;
 	}
 
