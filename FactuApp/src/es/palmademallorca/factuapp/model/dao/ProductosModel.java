@@ -9,11 +9,11 @@ import javax.persistence.TypedQuery;
 
 import es.palmademallorca.factuapp.model.jpa.Producto;
 
-public class ProductosModelJpa implements IProductosModel {
+public class ProductosModel implements IProductosModel {
 
     private final EntityManager entityManager;
 
-    public ProductosModelJpa(EntityManager entityManager) {
+    public ProductosModel(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

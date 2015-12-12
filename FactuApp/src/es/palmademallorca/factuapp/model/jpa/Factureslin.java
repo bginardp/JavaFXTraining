@@ -2,12 +2,13 @@ package es.palmademallorca.factuapp.model.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 
 
 /**
  * The persistent class for the factureslin database table.
- * 
+ *
  */
 @Entity
 @NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
@@ -32,17 +33,22 @@ public class Factureslin implements Serializable {
 
 	private BigDecimal preu;
 
-	@Column(name="producte_id")
-	private String producteId;
 
 	private BigDecimal requiv;
-
-	@Column(name="tipiva_id")
-	private Integer tipivaId;
 
 	//bi-directional many-to-one association to Factura
 	@ManyToOne
 	private Factura factura;
+
+			//uni-directional many-to-one association to Producto
+		@ManyToOne
+		@JoinColumn(name="producte_id")
+		private Producto producto;
+
+		//uni-directional many-to-one association to Tipiva
+		@ManyToOne
+		private Tipiva tipiva;
+
 
 	public Factureslin() {
 	}
@@ -103,13 +109,7 @@ public class Factureslin implements Serializable {
 		this.preu = preu;
 	}
 
-	public String getProducteId() {
-		return this.producteId;
-	}
 
-	public void setProducteId(String producteId) {
-		this.producteId = producteId;
-	}
 
 	public BigDecimal getRequiv() {
 		return this.requiv;
@@ -119,13 +119,7 @@ public class Factureslin implements Serializable {
 		this.requiv = requiv;
 	}
 
-	public Integer getTipivaId() {
-		return this.tipivaId;
-	}
 
-	public void setTipivaId(Integer tipivaId) {
-		this.tipivaId = tipivaId;
-	}
 
 	public Factura getFactura() {
 		return this.factura;
@@ -133,6 +127,22 @@ public class Factureslin implements Serializable {
 
 	public void setFactura(Factura factura) {
 		this.factura = factura;
+	}
+
+	public Producto getProducto() {
+		return this.producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public Tipiva getTipiva() {
+		return this.tipiva;
+	}
+
+	public void setTipiva(Tipiva tipiva) {
+		this.tipiva = tipiva;
 	}
 
 }

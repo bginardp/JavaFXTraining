@@ -26,7 +26,7 @@ public class ClientesModelJpa implements IClientesModel {
     @Override
     public List<Cliente> getClientes() {
         List<Cliente> ClienteJPAs = new ArrayList<>();
-        String jpql = "SELECT f FROM ClienteJPA f";
+        String jpql = "SELECT f FROM Cliente f";
         TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
         ClienteJPAs.addAll(query.getResultList());
         return ClienteJPAs;

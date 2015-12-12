@@ -77,9 +77,10 @@ public class Producto implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(this.getId()).append(" ").append(this.getDem());
-		return sb.toString();
+		return "Producto [id=" + id + ", dem=" + dem + ", hbl=" + hbl + "]";
 	}
+
+
+
 
 }

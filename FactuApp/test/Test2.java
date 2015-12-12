@@ -7,12 +7,16 @@ import javax.persistence.EntityManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.factuapp.model.dao.FacturasModel;
 import es.palmademallorca.factuapp.model.dao.ForPagModel;
+import es.palmademallorca.factuapp.model.dao.IClientesModel;
 import es.palmademallorca.factuapp.model.dao.IFacturasModel;
 import es.palmademallorca.factuapp.model.dao.IForPagModel;
+import es.palmademallorca.factuapp.model.dao.IProductosModel;
 import es.palmademallorca.factuapp.model.dao.ISeriesModel;
 import es.palmademallorca.factuapp.model.dao.ITipivaModel;
+import es.palmademallorca.factuapp.model.dao.ProductosModel;
 import es.palmademallorca.factuapp.model.dao.SeriesModelJpa;
 import es.palmademallorca.factuapp.model.dao.TipivaModel;
 import es.palmademallorca.factuapp.model.jpa.Cliente;
@@ -37,18 +41,14 @@ public class Test2 {
 	@Test
 	public void test() {
 
-		/*
-		 * Metamodel metamodel = em.getMetamodel(); ManagedType<ProductoJPA>
-		 * type1 = metamodel.managedType(ProductoJPA.class); Set<Attribute<?
-		 * super ProductoJPA,?>> attributes2 = type1.getAttributes();
-		 * System.out.println(attributes2.size()); for (Iterator<Attribute<?
-		 * super ProductoJPA, ?>> iterator = attributes2.iterator();
-		 * iterator.hasNext();) {
-		 *
-		 * Attribute<ProductoJPA, ?> attribute = (Attribute<ProductoJPA, ?>)
-		 * iterator.next(); System.out.println(attribute.getName()+ " " +
-		 * attribute.getJavaType()); }
-		 */
+		IProductosModel model = new ProductosModel(em);
+		List<Producto> productos = model.getProductos();
+
+		for (Iterator<Producto> iterator = productos.iterator(); iterator.hasNext();) {
+			Producto producto = iterator.next();
+			System.out.println(producto);
+
+		}
 
 		/*
 		 * EntityManagerProvider.printAttributesSize(SerieJPA.class);
@@ -63,30 +63,27 @@ public class Test2 {
 		 * }
 		 */
 
-		/*
-		 * EntityManagerProvider.printAttributesSize(Factura.class);
-		 *
-		 * IFacturasModel model1 = new FacturasModel(em); List<Factura> lista1=
-		 * model1.getAllFacturas(new Long(1));
-		 *
-		 * for (Iterator<Factura> iterator = lista1.iterator();
-		 * iterator.hasNext();) { Factura fila = iterator.next(); ClienteJPA
-		 * cliente = fila.getCliente(); EmpresaJPA empresa = fila.getEmpresa();
-		 * System.out.println("Datos factura:"+fila.toString()+" Datos cliente:"
-		 * +cliente.getNom() + " Datos Empresa:"+empresa.getDem());
-		 * List<Factureslin> lista2 = fila.getFactureslins();
-		 *
-		 * for (Iterator<Factureslin> itFaclin = lista2.iterator();
-		 * itFaclin.hasNext();) { Factureslin faclin = itFaclin.next();
-		 * ProductoJPA producto = faclin.getProducto(); System.out.println(
-		 * "Datos detalle factura:" + faclin.toString()); }
-		 *
-		 * }
-		 */
+		EntityManagerProvider.printAttributesSize(Factura.class);
 
+		IFacturasModel model1 = new FacturasModel(em);
+		List<Factura> lista1 = model1.getAllFacturas(new Long(1));
 
+		for (Iterator<Factura> iterator = lista1.iterator(); iterator.hasNext();) {
+			Factura fila = iterator.next();
+			Cliente cliente = fila.getCliente();
+			Empresa empresa = fila.getEmpresa();
+			System.out.println("Datos factura:" + fila.toString() + " Datos cliente:" + cliente.getNom()
+					+ " Datos Empresa:" + empresa.getDem());
+			List<Factureslin> lista2 = fila.getFactureslins();
 
+			for (Iterator<Factureslin> itFaclin = lista2.iterator(); itFaclin.hasNext();) {
+				Factureslin faclin = itFaclin.next();
+				Producto producto = faclin.getProducto();
+				System.out.println("Datos detalle factura:" + faclin.toString());
+			}
 
+		}
+/*
 		EntityManagerProvider.printAttributesSize(Tipiva.class);
 
 		ITipivaModel model1 = new TipivaModel(em);
@@ -100,15 +97,15 @@ public class Test2 {
 
 		EntityManagerProvider.printAttributesSize(Formaspago.class);
 
-		IForPagModel model = new ForPagModel(em);
-		List<Formaspago> lista = model.getForpag();
+		IForPagModel model2 = new ForPagModel(em);
+		List<Formaspago> lista = model2.getForpag();
 
 		for (Iterator<Formaspago> iterator = lista.iterator(); iterator.hasNext();) {
 			Formaspago fila = iterator.next();
 			System.out.println(fila.toString());
 
 		}
-
+*/
 		// fail("Not yet implemented");
 	}
 

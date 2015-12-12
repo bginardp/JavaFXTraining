@@ -20,8 +20,6 @@ public class FacturasModel implements IFacturasModel {
     }
 
 
-
-
 	@Override
 	public Factura getFacturaPorId(Long id) {
 		 return entityManager.find(Factura.class, id);

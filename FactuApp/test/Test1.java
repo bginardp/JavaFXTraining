@@ -3,9 +3,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,8 +10,8 @@ import org.junit.Test;
 import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.factuapp.model.dao.IClientesModel;
 import es.palmademallorca.factuapp.model.jpa.Cliente;
-import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
 import es.palmademallorca.factuapp.model.jpa.Cliente;
+import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
 
 public class Test1 {
 	// @PersistenceContext(unitName = "factuPU")

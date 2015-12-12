@@ -2,6 +2,7 @@ package es.palmademallorca.factuapp.model.jpa;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 
 /**
  * The persistent class for the facturas database table.
- * 
+ *
  */
 @Entity
 @Table(name="facturas")
@@ -28,19 +29,10 @@ public class Factura implements Serializable {
 
 	private BigDecimal baseiva2;
 
-	@Column(name="cliente_id")
-	private Integer clienteId;
-
 	@Temporal(TemporalType.DATE)
 	private Date dat;
 
 	private Integer ejercicio;
-
-	@Column(name="empresa_id")
-	private Integer empresaId;
-
-	@Column(name="forpag_id")
-	private Integer forpagId;
 
 	private BigDecimal impbru;
 
@@ -54,10 +46,36 @@ public class Factura implements Serializable {
 
 	private BigDecimal poriva2;
 
-	@Column(name="serie_id")
-	private String serieId;
-
 	private BigDecimal totfac;
+
+	//uni-directional many-to-one association to Cliente
+	@ManyToOne
+	private Cliente cliente;
+
+	//uni-directional many-to-one association to Empresa
+	/* Aquest atribut només s'hauria d'actualitzar a través de la serie i per evitar l'error
+	 * Only one may be defined as writable, all others must be specified read-only
+	 * s'afegeix insertable i updatable=false a la definició de la relació
+	 * font https://www.eclipse.org/forums/index.php/t/485946/
+	 */
+	@ManyToOne
+	@JoinColumn(name="empresa_id", insertable=false, updatable=false)
+	private Empresa empresa;
+
+	//uni-directional many-to-one association to Formaspago
+	@ManyToOne
+	@JoinColumn(name="forpag_id")
+	private Formaspago formaspago;
+
+	//uni-directional many-to-one association to Serie
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="empresa_id", referencedColumnName="empresa_id"),
+		@JoinColumn(name="serie_id", referencedColumnName="id")
+		})
+	private Serie serie;
+
+
 
 	//bi-directional many-to-one association to Factureslin
 	@OneToMany(mappedBy="factura")
@@ -98,13 +116,6 @@ public class Factura implements Serializable {
 		this.baseiva2 = baseiva2;
 	}
 
-	public Integer getClienteId() {
-		return this.clienteId;
-	}
-
-	public void setClienteId(Integer clienteId) {
-		this.clienteId = clienteId;
-	}
 
 	public Date getDat() {
 		return this.dat;
@@ -120,22 +131,6 @@ public class Factura implements Serializable {
 
 	public void setEjercicio(Integer ejercicio) {
 		this.ejercicio = ejercicio;
-	}
-
-	public Integer getEmpresaId() {
-		return this.empresaId;
-	}
-
-	public void setEmpresaId(Integer empresaId) {
-		this.empresaId = empresaId;
-	}
-
-	public Integer getForpagId() {
-		return this.forpagId;
-	}
-
-	public void setForpagId(Integer forpagId) {
-		this.forpagId = forpagId;
 	}
 
 	public BigDecimal getImpbru() {
@@ -186,15 +181,7 @@ public class Factura implements Serializable {
 		this.poriva2 = poriva2;
 	}
 
-	public String getSerieId() {
-		return this.serieId;
-	}
-
-	public void setSerieId(String serieId) {
-		this.serieId = serieId;
-	}
-
-	public BigDecimal getTotfac() {
+		public BigDecimal getTotfac() {
 		return this.totfac;
 	}
 
@@ -223,5 +210,34 @@ public class Factura implements Serializable {
 
 		return factureslin;
 	}
+
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Empresa getEmpresa() {
+		return this.empresa;
+	}
+
+	public Formaspago getFormaspago() {
+		return this.formaspago;
+	}
+
+	public void setFormaspago(Formaspago formaspago) {
+		this.formaspago = formaspago;
+	}
+
+	public Serie getSerie() {
+		return this.serie;
+	}
+
+	public void setSerie(Serie serie) {
+		this.serie = serie;
+	}
+
 
 }
