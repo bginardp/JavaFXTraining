@@ -13,28 +13,47 @@ import java.math.BigDecimal;
 @NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
 public class Factureslin implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private FactureslinPK id;
+
+	@Id
+	@SequenceGenerator(name="FACTURESLIN_ID_GENERATOR", sequenceName="FACLIN_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FACTURESLIN_ID_GENERATOR")
+	private Integer id;
+
 	private BigDecimal cantidad;
+
 	private String dem;
+
+	@Column(name="import")
 	private BigDecimal import_;
-	private BigDecimal perdte;
+
+	private BigDecimal pordte;
+
+	private BigDecimal poriva;
+
 	private BigDecimal preu;
+
+	@Column(name="producte_id")
+	private String producteId;
+
+	private BigDecimal requiv;
+
+	@Column(name="tipiva_id")
+	private Integer tipivaId;
+
+	//bi-directional many-to-one association to Factura
+	@ManyToOne
 	private Factura factura;
-	private ProductoJPA producto;
 
 	public Factureslin() {
 	}
 
-
-	@EmbeddedId
-	public FactureslinPK getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(FactureslinPK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public BigDecimal getCantidad() {
 		return this.cantidad;
@@ -44,7 +63,6 @@ public class Factureslin implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-
 	public String getDem() {
 		return this.dem;
 	}
@@ -53,8 +71,6 @@ public class Factureslin implements Serializable {
 		this.dem = dem;
 	}
 
-
-	@Column(name="import")
 	public BigDecimal getImport_() {
 		return this.import_;
 	}
@@ -63,15 +79,21 @@ public class Factureslin implements Serializable {
 		this.import_ = import_;
 	}
 
-
-	public BigDecimal getPerdte() {
-		return this.perdte;
+	public BigDecimal getPordte() {
+		return this.pordte;
 	}
 
-	public void setPerdte(BigDecimal perdte) {
-		this.perdte = perdte;
+	public void setPordte(BigDecimal pordte) {
+		this.pordte = pordte;
 	}
 
+	public BigDecimal getPoriva() {
+		return this.poriva;
+	}
+
+	public void setPoriva(BigDecimal poriva) {
+		this.poriva = poriva;
+	}
 
 	public BigDecimal getPreu() {
 		return this.preu;
@@ -81,31 +103,36 @@ public class Factureslin implements Serializable {
 		this.preu = preu;
 	}
 
+	public String getProducteId() {
+		return this.producteId;
+	}
 
-	//bi-directional many-to-one association to Factura
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="factura_id", referencedColumnName="id"),
-		@JoinColumn(name="factura_serial", referencedColumnName="serie_id")
-		})
+	public void setProducteId(String producteId) {
+		this.producteId = producteId;
+	}
+
+	public BigDecimal getRequiv() {
+		return this.requiv;
+	}
+
+	public void setRequiv(BigDecimal requiv) {
+		this.requiv = requiv;
+	}
+
+	public Integer getTipivaId() {
+		return this.tipivaId;
+	}
+
+	public void setTipivaId(Integer tipivaId) {
+		this.tipivaId = tipivaId;
+	}
+
 	public Factura getFactura() {
 		return this.factura;
 	}
 
 	public void setFactura(Factura factura) {
 		this.factura = factura;
-	}
-
-
-	//bi-directional many-to-one association to Producto
-	@ManyToOne
-	@JoinColumn(name="producte_id")
-	public ProductoJPA getProducto() {
-		return this.producto;
-	}
-
-	public void setProducto(ProductoJPA producto) {
-		this.producto = producto;
 	}
 
 }

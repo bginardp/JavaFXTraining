@@ -23,6 +23,7 @@ public class EntityManagerProvider {
 	}
 
 	private void initEntityManager() {
+		System.out.println("Constructor");		
 		entityManagerFactory = Persistence.createEntityManagerFactory("factuPU");
 		entityManager = entityManagerFactory.createEntityManager();
 	}
@@ -49,11 +50,11 @@ public class EntityManagerProvider {
 	}
 
 	public static <T> void printAttributesSize(T param) {
-		System.out.println(param);
+		System.out.println("Parametro:"+param);
 		Metamodel metamodel = entityManager.getMetamodel();
 		ManagedType<T> type1 = metamodel.managedType((Class<T>) param);
 		Set<Attribute<? super T, ?>> attributes2 = type1.getAttributes();
-		System.out.println(attributes2.size());
+		System.out.println("Cantidad atributos:"+attributes2.size());
 
 	}
 }

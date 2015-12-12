@@ -1,13 +1,14 @@
 package es.palmademallorca.factuapp.model.jpa;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,10 +18,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * JPA Class CarJPA
+ * JPA Class Cliente
  */
 @Entity
-@Table(name = "factu.clientes")
+@Table(name = "clientes")
 @NamedQueries ({
 	@NamedQuery(name="Cliente.findAll", query="SELECT c FROM ClienteJPA c"),
     @NamedQuery(name="Cliente.findByNom", query="SELECT c FROM ClienteJPA c WHERE c.nom like :nom")
@@ -38,6 +39,7 @@ public class ClienteJPA implements Serializable {
 	private StringProperty tel= new SimpleStringProperty();
 	private StringProperty movil= new SimpleStringProperty();
 	private StringProperty email= new SimpleStringProperty();
+	private List<Factura> facturas;
 
 
 
@@ -159,5 +161,37 @@ public class ClienteJPA implements Serializable {
 	/**
 	 * Methods get/set the fields of database
 	 */
+
+	//bi-directional many-to-one association to Factura
+	@OneToMany(mappedBy="cliente")
+	public List<Factura> getFacturas() {
+		return this.facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
+	public Factura addFactura(Factura factura) {
+		getFacturas().add(factura);
+		factura.setCliente(this);
+
+		return factura;
+	}
+
+	public Factura removeFactura(Factura factura) {
+		getFacturas().remove(factura);
+		factura.setCliente(null);
+
+		return factura;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getId()).append(" ").append(this.getCif()).append(" ").append(this.getNom());
+		return sb.toString();
+	}
+
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name="factu.productos")
+@Table(name="productos")
 @NamedQueries ({
 @NamedQuery(name="Producto.findAll", query="SELECT p FROM ProductoJPA p"),
 @NamedQuery(name="Producto.findByDem", query="SELECT p FROM ProductoJPA p WHERE p.dem like :dem")
@@ -91,6 +91,12 @@ public class ProductoJPA implements Serializable {
 		factureslin.setProducto(null);
 
 		return factureslin;
+	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getId()).append(" ").append(this.getDem());
+		return sb.toString();
 	}
 
 }

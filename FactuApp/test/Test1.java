@@ -27,7 +27,6 @@ public class Test1 {
 		} */
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void test() {
 
