@@ -44,7 +44,7 @@ public class MainApp extends Application {
         mainContainer.loadScreen(MainApp.mantenimientoProductoID, MainApp.mantenimientoProductoFile);
         mainContainer.loadScreen(MainApp.mantenimientoClientesID, MainApp.mantenimientoClientesFile);
 
-mainContainer.setScreen(MainApp.loginID);
+         mainContainer.setScreen(MainApp.loginID);
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
