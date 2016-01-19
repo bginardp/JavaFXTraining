@@ -22,7 +22,7 @@
 	
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="C:\Users\bernat\workspacefx\BaseCommon">
+			<fileset dir="C:\Users\bernat\git\JavaFXTraining\BaseCommon">
 				<include name="src/**" />
 			</fileset>
 		</copy>
