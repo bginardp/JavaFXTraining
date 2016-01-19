@@ -174,7 +174,7 @@
 
 		<fx:application id="fxApplication"
 			name="FactuApp"
-			mainClass="es.palmademallorca.factuapp.MainApp"
+			mainClass="es.palmademallorca.bg.factuapp.MainApp"
 		/>
 
 		<mkdir dir="build/classes/META-INF" />

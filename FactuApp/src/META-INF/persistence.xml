@@ -2,14 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="factuPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<class>es.palmademallorca.factuapp.model.jpa.Empresa</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Factura</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Formaspago</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Producto</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Serie</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Tipiva</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Cliente</class>
-		<class>es.palmademallorca.factuapp.model.jpa.Factureslin</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Empresa</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Factura</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Formaspago</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Producto</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Serie</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Tipiva</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Cliente</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Factureslin</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres" />
