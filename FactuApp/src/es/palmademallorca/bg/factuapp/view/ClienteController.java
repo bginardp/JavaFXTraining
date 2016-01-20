@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import es.palmademallorca.bg.common.controls.ControlesBasicos;
+import es.palmademallorca.bg.common.view.IControlledScreen;
 import es.palmademallorca.bg.factuapp.MainApp;
 import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
@@ -33,7 +34,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ClienteController implements Initializable, ControlledScreen {
+public class ClienteController implements Initializable, IControlledScreen {
 	ScreensController controlador;
 	private ControlesBasicos controlesBasicos = new ControlesBasicos();
 	// @PersistenceContext(unitName = "factuPU")

@@ -1,4 +1,4 @@
-package es.palmademallorca.bg.factuapp.util;
+package es.palmademallorca.bg.common.util.dateutils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

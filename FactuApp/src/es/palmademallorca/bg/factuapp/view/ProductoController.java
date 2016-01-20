@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
 import es.palmademallorca.bg.common.controls.ControlesBasicos;
+import es.palmademallorca.bg.common.view.IControlledScreen;
 import es.palmademallorca.bg.factuapp.MainApp;
 import es.palmademallorca.bg.factuapp.model.dao.IProductosModel;
 import es.palmademallorca.bg.factuapp.model.dao.ProductosModel;
@@ -26,7 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class ProductoController implements Initializable, ControlledScreen {
+public class ProductoController implements Initializable, IControlledScreen {
 
 	ScreensController controlador;
 	private ControlesBasicos controlesBasicos = new ControlesBasicos();

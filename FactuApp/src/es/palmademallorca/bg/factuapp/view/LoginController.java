@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import es.palmademallorca.bg.common.validacions.Validaciones;
+import es.palmademallorca.bg.common.view.IControlledScreen;
 import es.palmademallorca.bg.factuapp.MainApp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import javafx.scene.control.TextField;
  *
  * @author Escritorio
  */
-public class LoginController implements Initializable, ControlledScreen {
+public class LoginController implements Initializable, IControlledScreen {
     ScreensController controlador;
     private Validaciones validation = new Validaciones();
     public TextField tfUsuario;

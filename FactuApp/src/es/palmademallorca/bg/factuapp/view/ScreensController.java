@@ -1,6 +1,8 @@
 package es.palmademallorca.bg.factuapp.view;
 
 import java.util.HashMap;
+
+import es.palmademallorca.bg.common.view.IControlledScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -38,7 +40,7 @@ public class ScreensController extends StackPane {
 		try {
 			FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
 			Parent loadScreen = (Parent) myLoader.load();
-			ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
+			IControlledScreen myScreenControler = ((IControlledScreen) myLoader.getController());
 			myScreenControler.setScreenParent(this);
 			addScreen(name, loadScreen);
 			return true;

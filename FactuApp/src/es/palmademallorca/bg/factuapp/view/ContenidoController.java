@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import es.palmademallorca.bg.common.controls.ControlesBasicos;
+import es.palmademallorca.bg.common.view.IControlledScreen;
 import es.palmademallorca.bg.factuapp.MainApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import javafx.fxml.Initializable;
  *
  * @author Escritorio
  */
-public class ContenidoController implements Initializable, ControlledScreen {
+public class ContenidoController implements Initializable, IControlledScreen {
 
     ScreensController controlador;
 
