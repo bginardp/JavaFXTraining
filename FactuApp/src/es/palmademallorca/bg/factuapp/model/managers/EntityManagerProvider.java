@@ -1,6 +1,5 @@
 package es.palmademallorca.bg.factuapp.model.managers;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -9,8 +8,6 @@ import javax.persistence.Persistence;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.ManagedType;
 import javax.persistence.metamodel.Metamodel;
-
-import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
 public class EntityManagerProvider {
 
@@ -23,7 +20,7 @@ public class EntityManagerProvider {
 	}
 
 	private void initEntityManager() {
-		System.out.println("Constructor");		
+		System.out.println("Constructor");
 		entityManagerFactory = Persistence.createEntityManagerFactory("factuPU");
 		entityManager = entityManagerFactory.createEntityManager();
 	}

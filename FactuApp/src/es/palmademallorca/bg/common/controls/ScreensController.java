@@ -1,4 +1,4 @@
-package es.palmademallorca.bg.factuapp.view;
+package es.palmademallorca.bg.common.controls;
 
 import java.util.HashMap;
 

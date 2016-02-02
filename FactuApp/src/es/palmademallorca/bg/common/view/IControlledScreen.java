@@ -1,6 +1,6 @@
 package es.palmademallorca.bg.common.view;
 
-import es.palmademallorca.bg.factuapp.view.ScreensController;
+import es.palmademallorca.bg.common.controls.ScreensController;
 
 public interface IControlledScreen {
 

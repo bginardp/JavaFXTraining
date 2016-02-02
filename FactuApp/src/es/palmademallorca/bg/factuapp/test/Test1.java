@@ -1,3 +1,5 @@
+package es.palmademallorca.bg.factuapp.test;
+
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,11 +9,12 @@ import javax.persistence.EntityManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.palmademallorca.factuapp.model.dao.ClientesModelJpa;
-import es.palmademallorca.factuapp.model.dao.IClientesModel;
-import es.palmademallorca.factuapp.model.jpa.Cliente;
-import es.palmademallorca.factuapp.model.jpa.Cliente;
-import es.palmademallorca.factuapp.model.managers.EntityManagerProvider;
+import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
+import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
+import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
+import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
+
+
 
 public class Test1 {
 	// @PersistenceContext(unitName = "factuPU")

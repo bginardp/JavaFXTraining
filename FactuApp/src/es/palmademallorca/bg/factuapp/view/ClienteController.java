@@ -1,23 +1,15 @@
 package es.palmademallorca.bg.factuapp.view;
 
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
-import es.palmademallorca.bg.common.controls.ControlesBasicos;
-import es.palmademallorca.bg.common.view.IControlledScreen;
-import es.palmademallorca.bg.factuapp.MainApp;
+import es.palmademallorca.bg.factuapp.MainApp2;
 import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
 import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
-import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,17 +20,17 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ClienteController implements Initializable, IControlledScreen {
-	ScreensController controlador;
-	private ControlesBasicos controlesBasicos = new ControlesBasicos();
+public class ClienteController implements Initializable {
+	private MainApp2 mainApp;
+	//ScreensController controlador;
+	//private ControlesBasicos controlesBasicos = new ControlesBasicos();
 	// @PersistenceContext(unitName = "factuPU")
 	private static EntityManager em = EntityManagerProvider.getProvider().getEntityManager();
+
 	private IClientesModel model;
 	@FXML
 	private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
@@ -98,10 +90,13 @@ public class ClienteController implements Initializable, IControlledScreen {
 		btModificar.setDisable(true);
 		btEliminar.setStyle("-fx-background-color:grey");
 		btModificar.setStyle("-fx-background-color:grey");
-		// inicialitzar els detalls del client
-		// showDetailsClient(null);
+
+
 	}
 
+	public void setMainApp(MainApp2 mainApp) {
+		this.mainApp = mainApp;
+	}
 	private void cargarDatosTabla() {
 		model = new ClientesModelJpa(em);
 		clientesList = FXCollections.observableArrayList(model.getClientes());
@@ -275,6 +270,7 @@ public class ClienteController implements Initializable, IControlledScreen {
 		this.nombreCol = nombreCol;
 	}
 
+	/*
 	@FXML
 	private void irInicioContenido(ActionEvent event) {
 		controlador.setScreen(MainApp.contenidoID);
@@ -295,6 +291,6 @@ public class ClienteController implements Initializable, IControlledScreen {
 	public void setScreenParent(ScreensController pantallaPadre) {
 		controlador = pantallaPadre;
 
-	}
+	}*/
 
 }

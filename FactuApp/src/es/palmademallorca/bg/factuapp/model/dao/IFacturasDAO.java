@@ -5,7 +5,7 @@ import java.util.List;
 
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
 
-public interface IFacturasModel {
+public interface IFacturasDAO {
 
     public static final int EXITO = 0;
 

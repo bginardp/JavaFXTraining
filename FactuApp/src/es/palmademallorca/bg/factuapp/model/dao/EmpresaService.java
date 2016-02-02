@@ -10,11 +10,11 @@ import javax.persistence.TypedQuery;
 
 import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 
-public class EmpresasModelJpa implements IEmpresasModel {
+public class EmpresaService implements IEmpresaDAO {
 
     private final EntityManager entityManager;
 
-    public EmpresasModelJpa(EntityManager entityManager) {
+    public EmpresaService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -66,11 +66,11 @@ public class EmpresasModelJpa implements IEmpresasModel {
     }
 
     @Override
-    public int eliminar(Empresa EmpresaJPA) {
+    public int eliminar(Empresa empresa) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Empresa EmpresaJPAAEliminar = entityManager.getReference(Empresa.class, EmpresaJPA.getId());
+            Empresa EmpresaJPAAEliminar = entityManager.getReference(Empresa.class, empresa.getId());
             entityManager.remove(EmpresaJPAAEliminar);
             transaction.commit();
             return EXITO;

@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  * The persistent class for the factureslin database table.
  *
  */
-@Entity
-@NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
+//@Entity
+//@NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
 public class Factureslin implements Serializable {
 	private static final long serialVersionUID = 1L;
 

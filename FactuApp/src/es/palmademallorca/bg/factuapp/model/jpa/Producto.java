@@ -26,7 +26,6 @@ public class Producto implements Serializable {
    	private StringProperty dem = new SimpleStringProperty();
 	private StringProperty hbl = new SimpleStringProperty();
 
-	private List<Factureslin> factureslins;
 
 	public Producto() {
 	}
@@ -67,11 +66,6 @@ public class Producto implements Serializable {
 
 	public StringProperty hblProperty() {
 		return hbl;
-	}
-
-
-	public void setFactureslins(List<Factureslin> factureslins) {
-		this.factureslins = factureslins;
 	}
 
 

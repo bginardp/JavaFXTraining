@@ -10,168 +10,85 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="670.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.palmademallorca.bg.factuapp.view.ClienteController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.palmademallorca.bg.factuapp.view.ClienteController">
    <children>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="660.0" prefWidth="800.0">
+      <VBox layoutX="10.0" layoutY="10.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" styleClass="fondbox" VBox.margin="$x1">
-               <children>
-                  <Label prefWidth="368.0" styleClass="labels" text="Mi aplicación" textFill="WHITE">
-                     <effect>
-                        <Bloom />
-                     </effect>
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                     <stylesheets>
-                        <URL value="@../img_css/estilo1.css" />
-                     </stylesheets>
-                  </Label>
-                  <ImageView fitHeight="76.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image preserveRatio="false" smooth="false" url="@../img_css/logo-animado4.gif" />
-                     </image>
-                     <HBox.margin>
-                        <Insets fx:id="x1" />
-                     </HBox.margin>
-                  </ImageView>
-               </children>
-               <effect>
-                  <InnerShadow />
-               </effect>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-               <stylesheets>
-                  <URL value="@../img_css/estilo1.css" />
-               </stylesheets>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="650.0" prefWidth="800.0">
-               <children>
-                  <Pane prefHeight="600.0" prefWidth="755.0" styleClass="paneles">
+            <SplitPane dividerPositions="0.6427622841965471" focusTraversable="true">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="473.0">
                      <children>
-                        <MenuBar prefWidth="755.0">
-                           <menus>
-                              <Menu mnemonicParsing="false" text="Sistema">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#irInicioContenido" text="Inicio" />
-                                    <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" />
-                                    <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
-                                 </items>
-                              </Menu>
-                              <Menu mnemonicParsing="false" text="Mantenimiento">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Producto" />
-                                    <MenuItem mnemonicParsing="false" text="Clientes" />
-                                 </items>
-                              </Menu>
-                              <Menu mnemonicParsing="false" text="Ayuda">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="A cerca de" />
-                                 </items>
-                              </Menu>
-                           </menus>
-                        </MenuBar>
-                        <SplitPane dividerPositions="0.6427622841965471" focusTraversable="true" layoutY="24.0" prefHeight="475.0" prefWidth="755.0">
-                           <items>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="473.0">
-                                 <children>
-                                    <TableView fx:id="tableView" layoutY="52.0" prefHeight="421.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                       <columns>
-                                          <TableColumn fx:id="identificadorCol" prefWidth="96.0" text="Cod." />
-                                          <TableColumn fx:id="nombreCol" prefWidth="216.0" text="Nombre" />
-                                          <TableColumn fx:id="cifCol" prefWidth="103.0" text="Cif" />
-                                       </columns>
-                                    </TableView>
-                                    <TextField fx:id="tfBuscar" layoutX="14.0" layoutY="12.0" prefWidth="200.0" promptText="Ingrese el cliente a buscar" />
-                                    <Button layoutX="222.0" layoutY="12.0" mnemonicParsing="false" onAction="#buscarCliente" styleClass="botones" text="Buscar" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" fx:id="x2" />
-                                       </font>
-                                       <stylesheets>
-                                          <URL value="@../img_css/estilo1.css" />
-                                       </stylesheets>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="275.0">
-                                 <children>
-                                    <Label layoutX="2.0" layoutY="72.0" text="Nombre" />
-                                    <TextField id="tfProductoNombre" fx:id="tfNombre" layoutX="55.0" layoutY="69.0" prefHeight="25.0" prefWidth="200.0" />
-                                    <Button fx:id="btInsertar" font="$x2" layoutX="32.0" layoutY="314.0" mnemonicParsing="false" onAction="#add" prefWidth="203.0" styleClass="botones" text="Añadir" textFill="WHITE">
-                                       <stylesheets>
-                                          <URL value="@../img_css/estilo1.css" />
-                                       </stylesheets>
-                                    </Button>
-                                    <Button fx:id="btModificar" font="$x2" layoutX="32.0" layoutY="347.0" mnemonicParsing="false" onAction="#modificar" prefWidth="203.0" styleClass="botones" text="Modificar" textFill="WHITE">
-                                       <stylesheets>
-                                          <URL value="@../img_css/estilo1.css" />
-                                       </stylesheets>
-                                    </Button>
-                                    <Button fx:id="btEliminar" font="$x2" layoutX="32.0" layoutY="382.0" mnemonicParsing="false" onAction="#handleDeleteClient" prefWidth="203.0" styleClass="botones" text="Eliminar" textFill="WHITE">
-                                       <stylesheets>
-                                          <URL value="@../img_css/estilo1.css" />
-                                       </stylesheets>
-                                    </Button>
-                                    <Button fx:id="btNuevo" font="$x2" layoutX="32.0" layoutY="415.0" mnemonicParsing="false" onAction="#nou" prefHeight="37.0" prefWidth="203.0" styleClass="botones" text="Nuevo" textFill="WHITE">
-                                       <stylesheets>
-                                          <URL value="@../img_css/estilo1.css" />
-                                       </stylesheets>
-                                    </Button>
-                                    <Label layoutX="24.0" layoutY="14.0" prefWidth="191.0" text="Matenimiento de clientes" textAlignment="LEFT">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" fx:id="x3" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="2.0" layoutY="44.0" text="Cod:" />
-                                    <TextField fx:id="tfIdentificador" layoutX="55.0" layoutY="40.0" prefHeight="25.0" prefWidth="68.0" />
-                                    <Label layoutX="138.0" layoutY="44.0" text="Cif" />
-                                    <TextField id="tfProductoNombre" fx:id="tfCif" layoutX="158.0" layoutY="39.0" prefHeight="25.0" prefWidth="94.0" />
-                                    <TextField id="tfProductoNombre" fx:id="tfDireccion" layoutX="55.0" layoutY="128.0" prefHeight="25.0" prefWidth="200.0" />
-                                    <TextField id="tfProductoNombre" fx:id="tfMunicipio" layoutX="55.0" layoutY="158.0" prefHeight="25.0" prefWidth="200.0" />
-                                    <TextField id="tfProductoNombre" fx:id="tfProvincia" layoutX="133.0" layoutY="200.0" prefHeight="25.0" prefWidth="120.0" />
-                                    <TextField id="tfProductoNombre" fx:id="tfPostal" layoutX="55.0" layoutY="200.0" prefHeight="25.0" prefWidth="42.0" />
-                                    <TextField id="tfProductoNombre" fx:id="tfTel" layoutX="55.0" layoutY="230.0" prefHeight="25.0" prefWidth="90.0" />
-                                    <Label layoutX="2.0" layoutY="132.0" text="Dirección" />
-                                    <Label layoutX="2.0" layoutY="162.0" text="Municipio" />
-                                    <Label layoutX="167.0" layoutY="182.0" text="Provincia" />
-                                    <Label layoutX="60.0" layoutY="182.0" text="Postal" />
-                                    <Label layoutX="5.0" layoutY="234.0" text="Telefono" />
-                                    <TextField id="tfProductoNombre" fx:id="tfMovil" layoutX="152.0" layoutY="230.0" prefHeight="25.0" prefWidth="105.0" />
-                                    <Label layoutX="5.0" layoutY="265.0" text="Email" />
-                                    <TextField id="tfProductoNombre" fx:id="tfEmail" layoutX="55.0" layoutY="261.0" prefHeight="25.0" prefWidth="203.0" />
-                                 </children>
-                              </AnchorPane>
-                           </items>
-                        </SplitPane>
+                        <TableView fx:id="tableView" layoutY="52.0" prefHeight="421.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="identificadorCol" prefWidth="96.0" text="Cod." />
+                              <TableColumn fx:id="nombreCol" prefWidth="216.0" text="Nombre" />
+                              <TableColumn fx:id="cifCol" prefWidth="103.0" text="Cif" />
+                           </columns>
+                        </TableView>
+                        <TextField fx:id="tfBuscar" layoutX="14.0" layoutY="12.0" prefHeight="25.0" prefWidth="311.0" promptText="Ingrese el cliente a buscar" />
+                        <Button layoutX="340.0" layoutY="11.0" mnemonicParsing="false" onAction="#buscarCliente" styleClass="botones" text="Buscar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" fx:id="x2" />
+                           </font>
+                           <stylesheets>
+                              <URL value="@../img_css/estilo1.css" />
+                           </stylesheets>
+                        </Button>
                      </children>
-                     <effect>
-                        <InnerShadow />
-                     </effect>
-                     <stylesheets>
-                        <URL value="@../img_css/estilo1.css" />
-                     </stylesheets>
-                  </Pane>
-               </children>
-               <VBox.margin>
-                  <Insets fx:id="x1" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="800.0" spacing="20.0">
-               <children>
-                  <Hyperlink onAction="#salir" text="Salir del sistema" />
-               </children>
-               <VBox.margin>
-                  <Insets fx:id="x1" />
-               </VBox.margin>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </HBox>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="275.0">
+                     <children>
+                        <Label layoutX="2.0" layoutY="72.0" text="Nombre" />
+                        <TextField id="tfProductoNombre" fx:id="tfNombre" layoutX="60.0" layoutY="69.0" prefHeight="25.0" prefWidth="200.0" />
+                        <Button fx:id="btInsertar" font="$x2" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#add" prefWidth="203.0" styleClass="botones" text="Añadir" textFill="WHITE">
+                           <stylesheets>
+                              <URL value="@../img_css/estilo1.css" />
+                           </stylesheets>
+                        </Button>
+                        <Button fx:id="btModificar" font="$x2" layoutX="34.0" layoutY="353.0" mnemonicParsing="false" onAction="#modificar" prefWidth="203.0" styleClass="botones" text="Modificar" textFill="WHITE">
+                           <stylesheets>
+                              <URL value="@../img_css/estilo1.css" />
+                           </stylesheets>
+                        </Button>
+                        <Button fx:id="btEliminar" font="$x2" layoutX="34.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleDeleteClient" prefWidth="203.0" styleClass="botones" text="Eliminar" textFill="WHITE">
+                           <stylesheets>
+                              <URL value="@../img_css/estilo1.css" />
+                           </stylesheets>
+                        </Button>
+                        <Button fx:id="btNuevo" font="$x2" layoutX="34.0" layoutY="421.0" mnemonicParsing="false" onAction="#nou" prefHeight="37.0" prefWidth="203.0" styleClass="botones" text="Nuevo" textFill="WHITE">
+                           <stylesheets>
+                              <URL value="@../img_css/estilo1.css" />
+                           </stylesheets>
+                        </Button>
+                        <Label layoutX="24.0" layoutY="14.0" prefWidth="191.0" text="Matenimiento de clientes" textAlignment="LEFT">
+                           <font>
+                              <Font name="System Bold" size="14.0" fx:id="x3" />
+                           </font>
+                        </Label>
+                        <Label layoutX="2.0" layoutY="44.0" text="Cod:" />
+                        <TextField fx:id="tfIdentificador" layoutX="60.0" layoutY="40.0" prefHeight="25.0" prefWidth="68.0" />
+                        <Label layoutX="141.0" layoutY="44.0" text="Cif" />
+                        <TextField id="tfProductoNombre" fx:id="tfCif" layoutX="166.0" layoutY="39.0" prefHeight="25.0" prefWidth="94.0" />
+                        <TextField id="tfProductoNombre" fx:id="tfDireccion" layoutX="61.0" layoutY="128.0" prefHeight="25.0" prefWidth="200.0" />
+                        <TextField id="tfProductoNombre" fx:id="tfMunicipio" layoutX="61.0" layoutY="158.0" prefHeight="25.0" prefWidth="200.0" />
+                        <TextField id="tfProductoNombre" fx:id="tfProvincia" layoutX="142.0" layoutY="200.0" prefHeight="25.0" prefWidth="120.0" />
+                        <TextField id="tfProductoNombre" fx:id="tfPostal" layoutX="62.0" layoutY="200.0" prefHeight="25.0" prefWidth="42.0" />
+                        <TextField id="tfProductoNombre" fx:id="tfTel" layoutX="57.0" layoutY="230.0" prefHeight="25.0" prefWidth="90.0" />
+                        <Label layoutX="2.0" layoutY="132.0" text="Dirección" />
+                        <Label layoutX="2.0" layoutY="162.0" text="Municipio" />
+                        <Label layoutX="167.0" layoutY="182.0" text="Provincia" />
+                        <Label layoutX="60.0" layoutY="182.0" text="Postal" />
+                        <Label layoutX="5.0" layoutY="234.0" text="Telefono" />
+                        <TextField id="tfProductoNombre" fx:id="tfMovil" layoutX="152.0" layoutY="230.0" prefHeight="25.0" prefWidth="110.0" />
+                        <Label layoutX="5.0" layoutY="265.0" text="Email" />
+                        <TextField id="tfProductoNombre" fx:id="tfEmail" layoutX="58.0" layoutY="261.0" prefHeight="25.0" prefWidth="203.0" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
          </children>
          <stylesheets>
             <URL value="@../img_css/estilo1.css" />

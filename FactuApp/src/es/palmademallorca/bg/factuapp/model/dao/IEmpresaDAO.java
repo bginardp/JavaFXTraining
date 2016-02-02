@@ -7,7 +7,7 @@ import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 
 
 
-public interface IEmpresasModel {
+public interface IEmpresaDAO {
 
     public static final int EXITO = 0;
 

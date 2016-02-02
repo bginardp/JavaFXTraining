@@ -4,8 +4,8 @@ import java.io.InputStream;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
+import es.palmademallorca.bg.common.controls.ScreensController;
 import es.palmademallorca.bg.common.model.IBaseFXApp;
-import es.palmademallorca.bg.factuapp.view.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,92 +15,47 @@ public class MainApp extends Application implements IBaseFXApp {
 
 	private static final ProjectInfo projectInfo = new ProjectInfo();
 
-	public static String loginID = "main";
-    public static String loginFile = "Login.fxml";
+	public static final String loginID = "main";
+    public static final String loginFile = "Login.fxml";
 
-    public static String registroID = "registro";
-    public static String registroFile = "Registro.fxml";
+    public static final String registroID = "registro";
+    public static final String registroFile = "Registro.fxml";
 
-    public static String contenidoID = "contenido";
-    public static String contenidoFile = "Contenido.fxml";
+    public static final String contenidoID = "contenido";
+    public static final String contenidoFile = "Contenido.fxml";
 
-    public static String mantenimientoProductoID = "producto";
-    public static String mantenimientoProductoFile = "Producto.fxml";
+    public static final String mantenimientoProductoID = "producto";
+    public static final String mantenimientoProductoFile = "Producto.fxml";
 
-    public static String mantenimientoClientesID = "cliente";
-    public static String mantenimientoClientesFile = "Cliente.fxml";
+    public static final String mantenimientoClientesID = "cliente";
+    public static final String mantenimientoClientesFile = "Cliente.fxml";
 
+    public static final String FACTURASID = "factura";
+    public static final String FACTURASFILE = "Factura.fxml";
 
-	// private Stage primaryStage;
-
-
-
-	// private BorderPane rootLayout;
-
+	/**
+	 * anar afegint les pantalles a
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 
-		ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(MainApp.loginID, MainApp.loginFile);
-        mainContainer.loadScreen(MainApp.contenidoID, MainApp.contenidoFile);
-        mainContainer.loadScreen(MainApp.mantenimientoProductoID, MainApp.mantenimientoProductoFile);
-        mainContainer.loadScreen(MainApp.mantenimientoClientesID, MainApp.mantenimientoClientesFile);
+		ScreensController mainController = new ScreensController();
+        mainController.loadScreen(MainApp.loginID, MainApp.loginFile);
+        mainController.loadScreen(MainApp.contenidoID, MainApp.contenidoFile);
+        mainController.loadScreen(MainApp.mantenimientoProductoID, MainApp.mantenimientoProductoFile);
+        mainController.loadScreen(MainApp.mantenimientoClientesID, MainApp.mantenimientoClientesFile);
+        mainController.loadScreen(MainApp.FACTURASID, MainApp.FACTURASFILE);
 
-         mainContainer.setScreen(MainApp.loginID);
+        mainController.setScreen(MainApp.loginID);
 
-        Group root = new Group();
-        root.getChildren().addAll(mainContainer);
-        Scene scene = new Scene(root);
+        //Group root = new Group();
+        //root.getChildren().addAll(mainController);
+        Scene scene = new Scene(mainController);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
-	/*	this.primaryStage=primaryStage;
-		this.primaryStage.setTitle("Factu Aplicación");
-		initRootLayout();
-
-
-		showClient(); */
 	}
 
-	/**
-     * Initializes the root layout.
-     */
-  /*  public void initRootLayout() {
-        try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
-
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }  */
-
-    /**
-     * Shows the person overview inside the root layout.
-     */
-    /* public void showClient() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Cliente.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    } */
-
-
-
+	
 
 	public static void main(String[] args) {
 		launch(args);
@@ -109,13 +64,13 @@ public class MainApp extends Application implements IBaseFXApp {
 	@Override
 	public String getApplicationName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Facturación";
 	}
 
 	@Override
 	public String getApplicationDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Facturación de coña";
 	}
 
 	@Override

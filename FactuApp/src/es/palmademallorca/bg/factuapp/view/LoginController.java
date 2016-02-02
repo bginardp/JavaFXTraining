@@ -7,6 +7,7 @@ package es.palmademallorca.bg.factuapp.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import es.palmademallorca.bg.common.controls.ScreensController;
 import es.palmademallorca.bg.common.validacions.Validaciones;
 import es.palmademallorca.bg.common.view.IControlledScreen;
 import es.palmademallorca.bg.factuapp.MainApp;
