@@ -12,7 +12,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.palmademallorca.bg.factuapp.view.ClienteController">
    <children>
-      <VBox layoutX="10.0" layoutY="10.0">
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="485.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <SplitPane dividerPositions="0.6427622841965471" focusTraversable="true">
                <items>

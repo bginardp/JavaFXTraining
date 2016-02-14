@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
 
-public interface IForPagModel {
+public interface IForPagDAO {
 
     public static final int EXITO = 0;
 

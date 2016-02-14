@@ -1,4 +1,4 @@
-package es.palmademallorca.bg.factuapp.test;
+package es.palmademallorca.bg.factuapp.model.test;
 
 
 import java.util.Iterator;
@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
-import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
+import es.palmademallorca.bg.factuapp.model.dao.ClientesService;
+import es.palmademallorca.bg.factuapp.model.dao.IClientesDAO;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
 
@@ -30,7 +30,7 @@ public class Test1 {
 	@Test
 	public void test() {
 
-		IClientesModel model = new ClientesModelJpa(em);
+		IClientesDAO model = new ClientesService(em);
 		List<Cliente> clientes= model.getClientes();
 
 	    for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {

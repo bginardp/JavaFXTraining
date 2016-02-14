@@ -7,10 +7,7 @@ package es.palmademallorca.bg.factuapp.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import es.palmademallorca.bg.common.controls.ScreensController;
 import es.palmademallorca.bg.common.validacions.Validaciones;
-import es.palmademallorca.bg.common.view.IControlledScreen;
-import es.palmademallorca.bg.factuapp.MainApp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +20,8 @@ import javafx.scene.control.TextField;
  *
  * @author Escritorio
  */
-public class LoginController implements Initializable, IControlledScreen {
-    ScreensController controlador;
-    private Validaciones validation = new Validaciones();
+public class LoginController implements Initializable  {
+     private Validaciones validation = new Validaciones();
     public TextField tfUsuario;
     public PasswordField tfPass;
     /**
@@ -36,11 +32,7 @@ public class LoginController implements Initializable, IControlledScreen {
         // TODO
     }
 
-    @Override
-    public void setScreenParent(ScreensController pantallaPadre) {
-        controlador = pantallaPadre;
 
-    }
 
     @FXML
     private void iniciarSesion(ActionEvent event){
@@ -55,7 +47,7 @@ public class LoginController implements Initializable, IControlledScreen {
         if (!validation.validarMaximo(tfUsuario.getText(), "USUARIO", 20, 2)) {
             return;
         }
-        controlador.setScreen(MainApp.contenidoID);
+       // controlador.setScreen(MainApp.contenidoID);
         /**********************************
          *     Fin de las validaciones
          ***********************************/
@@ -85,10 +77,6 @@ public class LoginController implements Initializable, IControlledScreen {
         } */
     }
 
-    @FXML
-    private void irFormRegistro(ActionEvent event) {
-        controlador.setScreen(MainApp.registroID);
-    }
 
     @FXML
     private void salir(ActionEvent event) {

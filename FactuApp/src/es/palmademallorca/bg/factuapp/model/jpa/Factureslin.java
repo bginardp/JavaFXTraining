@@ -3,6 +3,11 @@ package es.palmademallorca.bg.factuapp.model.jpa;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.math.BigDecimal;
 
 
@@ -10,139 +15,199 @@ import java.math.BigDecimal;
  * The persistent class for the factureslin database table.
  *
  */
-//@Entity
-//@NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
+@Entity
+@NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
 public class Factureslin implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@SequenceGenerator(name="FACTURESLIN_ID_GENERATOR", sequenceName="FACLIN_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FACTURESLIN_ID_GENERATOR")
-	private Integer id;
-
-	private BigDecimal cantidad;
-
-	private String dem;
-
-	@Column(name="import")
-	private BigDecimal import_;
-
-	private BigDecimal pordte;
-
-	private BigDecimal poriva;
-
-	private BigDecimal preu;
-
-
-	private BigDecimal requiv;
-
-	//bi-directional many-to-one association to Factura
-	@ManyToOne
-	private Factura factura;
-
-			//uni-directional many-to-one association to Producto
-		@ManyToOne
-		@JoinColumn(name="producte_id")
-		private Producto producto;
-
-		//uni-directional many-to-one association to Tipiva
-		@ManyToOne
-		private Tipiva tipiva;
-
+	private LongProperty id=new SimpleLongProperty();
+	private SimpleObjectProperty<BigDecimal> cantidad=new SimpleObjectProperty();
+	private SimpleStringProperty dem=new SimpleStringProperty();
+	private SimpleObjectProperty<BigDecimal> importe=new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> pordte=new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> poriva=new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> preu=new SimpleObjectProperty();
+	private SimpleStringProperty producteId=new SimpleStringProperty();
+	private SimpleObjectProperty<BigDecimal> requiv=new SimpleObjectProperty();
+	private LongProperty tipivaId=new SimpleLongProperty();
+	private SimpleObjectProperty<Factura> factura=new SimpleObjectProperty();
 
 	public Factureslin() {
 	}
 
-	public Integer getId() {
+
+	public LongProperty idProperty() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@Id
+	public long getId() {
+		return this.idProperty().get();
 	}
 
-	public BigDecimal getCantidad() {
+
+	public void setId(final long id) {
+		this.idProperty().set(id);
+	}
+
+
+	public SimpleObjectProperty<BigDecimal> cantidadProperty() {
 		return this.cantidad;
 	}
 
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
+
+	public java.math.BigDecimal getCantidad() {
+		return this.cantidadProperty().get();
 	}
 
-	public String getDem() {
+
+	public void setCantidad(final java.math.BigDecimal cantidad) {
+		this.cantidadProperty().set(cantidad);
+	}
+
+
+	public SimpleStringProperty demProperty() {
 		return this.dem;
 	}
 
-	public void setDem(String dem) {
-		this.dem = dem;
+
+	public java.lang.String getDem() {
+		return this.demProperty().get();
 	}
 
-	public BigDecimal getImport_() {
-		return this.import_;
+
+	public void setDem(final java.lang.String dem) {
+		this.demProperty().set(dem);
 	}
 
-	public void setImport_(BigDecimal import_) {
-		this.import_ = import_;
+
+	public SimpleObjectProperty<BigDecimal> importeProperty() {
+		return this.importe;
 	}
 
-	public BigDecimal getPordte() {
+	@Column(name="import")
+	public java.math.BigDecimal getImporte() {
+		return this.importeProperty().get();
+	}
+
+
+	public void setImporte(final java.math.BigDecimal importe) {
+		this.importeProperty().set(importe);
+	}
+
+
+	public SimpleObjectProperty<BigDecimal> pordteProperty() {
 		return this.pordte;
 	}
 
-	public void setPordte(BigDecimal pordte) {
-		this.pordte = pordte;
+
+	public java.math.BigDecimal getPordte() {
+		return this.pordteProperty().get();
 	}
 
-	public BigDecimal getPoriva() {
+
+	public void setPordte(final java.math.BigDecimal pordte) {
+		this.pordteProperty().set(pordte);
+	}
+
+
+	public SimpleObjectProperty<BigDecimal> porivaProperty() {
 		return this.poriva;
 	}
 
-	public void setPoriva(BigDecimal poriva) {
-		this.poriva = poriva;
+
+	public java.math.BigDecimal getPoriva() {
+		return this.porivaProperty().get();
 	}
 
-	public BigDecimal getPreu() {
+
+	public void setPoriva(final java.math.BigDecimal poriva) {
+		this.porivaProperty().set(poriva);
+	}
+
+
+	public SimpleObjectProperty<BigDecimal> preuProperty() {
 		return this.preu;
 	}
 
-	public void setPreu(BigDecimal preu) {
-		this.preu = preu;
+
+	public java.math.BigDecimal getPreu() {
+		return this.preuProperty().get();
 	}
 
 
+	public void setPreu(final java.math.BigDecimal preu) {
+		this.preuProperty().set(preu);
+	}
 
-	public BigDecimal getRequiv() {
+
+	public SimpleStringProperty producteIdProperty() {
+		return this.producteId;
+	}
+
+	@Column(name="producte_id")
+	public java.lang.String getProducteId() {
+		return this.producteIdProperty().get();
+	}
+
+
+	public void setProducteId(final java.lang.String producteId) {
+		this.producteIdProperty().set(producteId);
+	}
+
+
+	public SimpleObjectProperty<BigDecimal> requivProperty() {
 		return this.requiv;
 	}
 
-	public void setRequiv(BigDecimal requiv) {
-		this.requiv = requiv;
+
+	public java.math.BigDecimal getRequiv() {
+		return this.requivProperty().get();
 	}
 
 
+	public void setRequiv(final java.math.BigDecimal requiv) {
+		this.requivProperty().set(requiv);
+	}
 
-	public Factura getFactura() {
+
+	public LongProperty tipivaIdProperty() {
+		return this.tipivaId;
+	}
+
+	@Column(name="tipiva_id")
+	public long getTipivaId() {
+		return this.tipivaIdProperty().get();
+	}
+
+
+	public void setTipivaId(final long tipivaId) {
+		this.tipivaIdProperty().set(tipivaId);
+	}
+
+
+	public SimpleObjectProperty<Factura> facturaProperty() {
 		return this.factura;
 	}
 
-	public void setFactura(Factura factura) {
-		this.factura = factura;
+	@ManyToOne
+	public es.palmademallorca.bg.factuapp.model.jpa.Factura getFactura() {
+		return this.facturaProperty().get();
 	}
 
-	public Producto getProducto() {
-		return this.producto;
+
+	public void setFactura(final es.palmademallorca.bg.factuapp.model.jpa.Factura factura) {
+		this.facturaProperty().set(factura);
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+
+	@Override
+	public String toString() {
+		return "Factureslin [getId()=" + getId() + ", getCantidad()=" + getCantidad() + ", getDem()=" + getDem()
+				+ ", getImporte()=" + getImporte() + ", getPordte()=" + getPordte() + ", getPoriva()=" + getPoriva()
+				+ ", getPreu()=" + getPreu() + ", getProducteId()=" + getProducteId() + ", getRequiv()=" + getRequiv()
+				+ ", getTipivaId()=" + getTipivaId() + "]";
 	}
 
-	public Tipiva getTipiva() {
-		return this.tipiva;
-	}
 
-	public void setTipiva(Tipiva tipiva) {
-		this.tipiva = tipiva;
-	}
 
 }

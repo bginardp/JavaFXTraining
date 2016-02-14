@@ -5,7 +5,7 @@ import java.util.List;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
-public interface IClientesModel {
+public interface IClientesDAO {
 
     public static final int EXITO = 0;
 

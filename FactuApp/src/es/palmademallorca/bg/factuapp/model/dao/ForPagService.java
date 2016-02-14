@@ -1,5 +1,6 @@
 package es.palmademallorca.bg.factuapp.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -7,43 +8,35 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.bg.factuapp.model.jpa.Producto;
+import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
 
-public class ProductosModel implements IProductosModel {
+public class ForPagService implements IForPagDAO {
 
     private final EntityManager entityManager;
 
-    public ProductosModel(EntityManager entityManager) {
+    public ForPagService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public Producto getProductoPorId(String id) {
-        return entityManager.find(Producto.class, id);
+    public Formaspago getForpagPorId(Long id) {
+        return entityManager.find(Formaspago.class, id);
+    }
+    @Override
+    public List<Formaspago> getForpag() {
+    	TypedQuery<Formaspago> query =
+        		entityManager.createNamedQuery("Forpag.findAll", Formaspago.class);
+        List<Formaspago> llista = new ArrayList<>();
+           llista.addAll(query.getResultList());
+        return llista;
     }
 
     @Override
-    public List<Producto> getProductosPorDem(String valor) {
-    	TypedQuery<Producto> query =
-        		entityManager.createNamedQuery("Producto.findByDem", Producto.class);
-    	query.setParameter("dem", "%" + valor + "%");
-        List<Producto> productos = query.getResultList();
-        return productos;
-    }
-    @Override
-    public List<Producto> getProductos() {
-        TypedQuery<Producto> query =
-        		entityManager.createNamedQuery("Producto.findAll", Producto.class);
-        List<Producto> productos = query.getResultList();
-        return productos;
-    }
-
-    @Override
-    public int insertar(Producto producto) {
+    public int insertar(Formaspago registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.persist(producto);
+            entityManager.persist(registro);
             transaction.commit();
             return EXITO;
         } catch (EntityExistsException ex) {
@@ -55,11 +48,11 @@ public class ProductosModel implements IProductosModel {
     }
 
     @Override
-    public int modificar(Producto producto) {
+    public int modificar(Formaspago registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.merge(producto);
+            entityManager.merge(registro);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -71,12 +64,12 @@ public class ProductosModel implements IProductosModel {
     }
 
     @Override
-    public int eliminar(Producto producto) {
+    public int eliminar(Formaspago registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-        	Producto AEliminar = entityManager.getReference(Producto.class, producto.getId());
-            entityManager.remove(AEliminar);
+            Formaspago regABorrar = entityManager.getReference(Formaspago.class, registro.getId());
+            entityManager.remove(regABorrar);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -88,13 +81,13 @@ public class ProductosModel implements IProductosModel {
     }
 
     @Override
-    public int eliminar(List<Producto> productos) {
+    public int eliminar(List<Formaspago> lista) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Producto ProductoJPA : productos) {
-            	Producto AEliminar = entityManager.getReference(Producto.class, ProductoJPA.getId());
-                entityManager.remove(AEliminar);
+            for (Formaspago fila : lista) {
+                Formaspago regABorrar = entityManager.getReference(Formaspago.class, fila.getId());
+                entityManager.remove(regABorrar);
             }
             transaction.commit();
             return EXITO;
@@ -105,6 +98,7 @@ public class ProductosModel implements IProductosModel {
             return FALLO;
         }
     }
+
 
 
 }

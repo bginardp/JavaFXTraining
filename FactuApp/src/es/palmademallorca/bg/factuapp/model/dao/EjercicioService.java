@@ -8,36 +8,35 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
-import es.palmademallorca.bg.factuapp.model.jpa.Producto;
+import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
 
-public class ClientesModelJpa implements IClientesModel {
+public class EjercicioService implements IEjercicioDAO {
 
     private final EntityManager entityManager;
 
-    public ClientesModelJpa(EntityManager entityManager) {
+    public EjercicioService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public Cliente getClientePorId(Long id) {
-        return entityManager.find(Cliente.class, id);
+    public Ejercicio getEjercicioById(Integer id) {
+        return entityManager.find(Ejercicio.class, id);
     }
     @Override
-    public List<Cliente> getClientes() {
-        List<Cliente> ClienteJPAs = new ArrayList<>();
-        String jpql = "SELECT f FROM Cliente f";
-        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
-        ClienteJPAs.addAll(query.getResultList());
-        return ClienteJPAs;
+    public List<Ejercicio> getEjercicios() {
+    	TypedQuery<Ejercicio> query =
+        		entityManager.createNamedQuery("Ejercicio.findAll", Ejercicio.class);
+        List<Ejercicio> lista = new ArrayList<>();
+        lista.addAll(query.getResultList());
+        return lista;
     }
 
     @Override
-    public int insertar(Cliente ClienteJPA) {
+    public int insertar(Ejercicio registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.persist(ClienteJPA);
+            entityManager.persist(registro);
             transaction.commit();
             return EXITO;
         } catch (EntityExistsException ex) {
@@ -49,11 +48,11 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int modificar(Cliente ClienteJPA) {
+    public int modificar(Ejercicio registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.merge(ClienteJPA);
+            entityManager.merge(registro);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -65,12 +64,13 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int eliminar(Cliente ClienteJPA) {
+    public int eliminar(Ejercicio registro) {
+
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
-            entityManager.remove(ClienteJPAAEliminar);
+            Ejercicio aEliminar = entityManager.getReference(Ejercicio.class, registro.getId());
+            entityManager.remove(aEliminar);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -82,13 +82,13 @@ public class ClientesModelJpa implements IClientesModel {
     }
 
     @Override
-    public int eliminar(List<Cliente> ClienteJPAs) {
+    public int eliminar(List<Ejercicio> lista) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Cliente ClienteJPA : ClienteJPAs) {
-                Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
-                entityManager.remove(ClienteJPAAEliminar);
+            for (Ejercicio fila : lista) {
+                Ejercicio aEliminar = entityManager.getReference(Ejercicio.class, fila.getId());
+                entityManager.remove(aEliminar);
             }
             transaction.commit();
             return EXITO;
@@ -100,14 +100,6 @@ public class ClientesModelJpa implements IClientesModel {
         }
     }
 
-	@Override
-	public List<Cliente> getClientesPorNombre(String valor) {
-		TypedQuery<Cliente> query =
-        		entityManager.createNamedQuery("Cliente.findByNom", Cliente.class);
-    	query.setParameter("nom", "%" + valor + "%");
-        List<Cliente> clientes = query.getResultList();
-        return clientes;
-	}
 
 
 }

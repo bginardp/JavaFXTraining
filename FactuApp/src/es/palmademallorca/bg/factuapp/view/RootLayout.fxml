@@ -55,15 +55,26 @@
             <HBox alignment="CENTER" />
             <HBox alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="2.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="cambiarButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleExitEmpresa" text="Cambiar" visible="false" />
-                        <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleExit" text="Salir Sistema" />
-                        <ComboBox fx:id="empresasCombo" prefWidth="150.0" promptText="Seleccionar" />
                         <Label fx:id="empresaLabel" text="empresa" textFill="#f00707" visible="false">
                            <font>
                               <Font size="22.0" />
-                           </font></Label>
+                           </font>
+                        </Label>
+                        <Label fx:id="ejercicioLabel" text="ejercicio" textFill="#f00707" visible="false">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="2.0">
+                     <children>
+                        <Button fx:id="cambiarButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleCambiar" text="Cambiar" visible="false" />
+                        <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleExit" text="Salir Sistema" />
+                        <ComboBox fx:id="empresasCombo" prefWidth="150.0" promptText="Seleccionar empresa" />
+                        <ComboBox fx:id="ejerciciosCombo" prefWidth="150.0" promptText="Seleccionar ejercicio" />
                      </children>
                   </VBox>
                </children>

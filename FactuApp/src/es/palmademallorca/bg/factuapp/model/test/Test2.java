@@ -1,4 +1,4 @@
-package es.palmademallorca.bg.factuapp.test;
+package es.palmademallorca.bg.factuapp.model.test;
 
 import java.util.List;
 
@@ -23,18 +23,19 @@ public class Test2 {
 	@Test
 	public void test() {
 		IFacturasDAO model1 = new FacturasService(em);
-		List<Factura> lista1 = model1.getAllFacturas(new Long(1));
-		for (Factura fila:lista1) {
+		String criteri = "01-01-2015";
+		List<Factura> factures = model1.findFacturas(new Long(1), new Integer(2015), criteri);
+		for (Factura fila:factures) {
 			Cliente cliente = fila.getCliente();
 			Empresa empresa = fila.getEmpresa();
 			System.out.println("Datos factura:" + fila);
 			System.out.println("Datos cliente:" + cliente.getNom()
 					+ " Datos Empresa:" + empresa.getDem());
-			/* List<Factureslin> lista2 = fila.getFactureslins();
+			 List<Factureslin> lista2 = fila.getFactureslins();
 			for (Factureslin lin:lista2) {
-				Producto producto = lin.getProducto();
+			//	Producto producto = lin.getProducto();
 				System.out.println("Datos detalle factura:" + lin.toString());
-	     	}*/
+	     	}
 		}
 
 }

@@ -6,9 +6,9 @@ import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
 
-import es.palmademallorca.bg.factuapp.MainApp2;
-import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
-import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
+import es.palmademallorca.bg.factuapp.MainApp;
+import es.palmademallorca.bg.factuapp.model.dao.ClientesService;
+import es.palmademallorca.bg.factuapp.model.dao.IClientesDAO;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
 import javafx.collections.FXCollections;
@@ -25,13 +25,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class ClienteController implements Initializable {
-	private MainApp2 mainApp;
+	private MainApp mainApp;
 	//ScreensController controlador;
 	//private ControlesBasicos controlesBasicos = new ControlesBasicos();
 	// @PersistenceContext(unitName = "factuPU")
 	private static EntityManager em = EntityManagerProvider.getProvider().getEntityManager();
 
-	private IClientesModel model;
+	private IClientesDAO model;
 	@FXML
 	private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
 	@FXML
@@ -94,11 +94,11 @@ public class ClienteController implements Initializable {
 
 	}
 
-	public void setMainApp(MainApp2 mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 	private void cargarDatosTabla() {
-		model = new ClientesModelJpa(em);
+		model = new ClientesService(em);
 		clientesList = FXCollections.observableArrayList(model.getClientes());
 		tableView.setItems(clientesList);
 		// Listen for selection changes and show the client details when

@@ -3,25 +3,32 @@ package es.palmademallorca.bg.factuapp.model.jpa;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * The persistent class for the facturas database table.
@@ -29,78 +36,184 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 @Entity
 @Table(name = "facturas")
-@NamedQueries ({
-	@NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
-	@NamedQuery(name="Factura.findByEmp", query="SELECT f FROM Factura f WHERE f.empresa.id = :empresa_id")
+@NamedQueries({ @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
+		@NamedQuery(name = "Factura.findByEmp", query = "SELECT f FROM Factura f WHERE f.empresaId = :empresa_id"),
+		@NamedQuery(name = "Factura.findByEmpEje", query = "SELECT f FROM Factura f WHERE f.empresaId = :empresa_id AND f.ejercicioId=:ejercicio"),
+		@NamedQuery(name = "Factura.findFacturasByString", query = "SELECT f FROM Factura f WHERE f.empresaId = :empresa_id AND f.ejercicioId=:ejercicio"
+				+ "  AND (f.cliente.nom like :criteria)" + " ORDER BY f.numero"),
+		@NamedQuery(name = "Factura.findFacturasByNumber", query = "SELECT f FROM Factura f WHERE f.empresaId = :empresa_id AND f.ejercicioId=:ejercicio"
+				+ "  AND (f.numero = :numero OR f.totfac = :totfac)" + " ORDER BY f.numero"),
+		@NamedQuery(name = "Factura.findFacturasByDate", query = "SELECT f FROM Factura f WHERE f.empresaId = :empresa_id AND f.ejercicioId=:ejercicio"
+				+ " AND (f.dat = :criteria)" + " ORDER BY f.numero")
+
 })
 public class Factura implements Serializable {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 3838441874768652435L;
-
-	private LongProperty id=new SimpleLongProperty();
-	@Transient
-	private SimpleObjectProperty<BigDecimal> baseirpf= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> baseiva1= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> baseiva2= new SimpleObjectProperty();;
-	@Transient
-	//@Temporal(TemporalType.DATE)
-	private SimpleObjectProperty<LocalDate> dat=new SimpleObjectProperty();
-	@Transient
-	private IntegerProperty ejercicio= new SimpleIntegerProperty();
-	@Transient
-	private SimpleObjectProperty<BigDecimal> impbru= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> impdto= new SimpleObjectProperty();;
-    @Transient
-	private LongProperty numero=new SimpleLongProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> porirpf= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> poriva1= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> poriva2= new SimpleObjectProperty();;
-	@Transient
-	private SimpleObjectProperty<BigDecimal> totfac= new SimpleObjectProperty();;
-
-	// uni-directional many-to-one association to Cliente
-	@ManyToOne
-	private Cliente cliente;
-
-	// uni-directional many-to-one association to Empresa
-	/*
-	 * Aquest atribut només s'hauria d'actualitzar a través de la serie i per
-	 * evitar l'error Only one may be defined as writable, all others must be
-	 * specified read-only s'afegeix insertable i updatable=false a la definició
-	 * de la relació font https://www.eclipse.org/forums/index.php/t/485946/
-	 */
-	@ManyToOne
-	@JoinColumn(name = "empresa_id", insertable = false, updatable = false)
-	private Empresa empresa;
-
-	// uni-directional many-to-one association to Formaspago
-	@ManyToOne
-	@JoinColumn(name = "forpag_id")
-	private Formaspago formaspago;
-
-	// uni-directional many-to-one association to Serie
-	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id"),
-			@JoinColumn(name = "serie_id", referencedColumnName = "id") })
-	private Serie serie;
-
+	private static final long serialVersionUID = 1L;
+	private LongProperty id = new SimpleLongProperty();
+	private SimpleObjectProperty<BigDecimal> baseirpf = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> baseiva1 = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> baseiva2 = new SimpleObjectProperty();
+	private LongProperty clienteId = new SimpleLongProperty();
+	private ObjectProperty<LocalDate> dat = new SimpleObjectProperty();;
+	private IntegerProperty ejercicioId = new SimpleIntegerProperty();
+	private LongProperty empresaId = new SimpleLongProperty();
+	private LongProperty forpagId = new SimpleLongProperty();
+	private SimpleObjectProperty<BigDecimal> impbru = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> pordto = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> impdto = new SimpleObjectProperty();
+	private LongProperty numero = new SimpleLongProperty();
+	private SimpleObjectProperty<BigDecimal> porirpf = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> poriva1 = new SimpleObjectProperty();
+	private SimpleObjectProperty<BigDecimal> poriva2 = new SimpleObjectProperty();
+	private SimpleStringProperty serieId = new SimpleStringProperty();
+	private SimpleObjectProperty<BigDecimal> totfac = new SimpleObjectProperty();
+	private SimpleObjectProperty<Cliente> cliente = new SimpleObjectProperty();
+	private SimpleObjectProperty<Empresa> empresa = new SimpleObjectProperty();
+	private SimpleObjectProperty<Formaspago> formaspago = new SimpleObjectProperty();
+	private SimpleObjectProperty<Serie> serie = new SimpleObjectProperty();
+	private List<Factureslin> factureslins;
 	// bi-directional many-to-one association to Factureslin
-	// @OneToMany(mappedBy = "factura")
-	//private List<Factureslin> factureslins;
 
 	public Factura() {
 	}
 
-/*	public List<Factureslin> getFactureslins() {
+	@Id
+	@GeneratedValue(generator = "FacturaSeq")
+	@SequenceGenerator(name = "FacturaSeq", sequenceName = "factu.factura_seq", allocationSize = 1)
+	@Access(AccessType.PROPERTY)
+	public Long getId() {
+		return this.idProperty().get();
+	}
+
+	public void setId(Long id) {
+		this.idProperty().set(id);
+	}
+
+	public LongProperty idProperty() {
+		return this.id;
+	}
+
+	@Column(name = "cliente_id")
+	public long getClienteId() {
+		return this.clienteIdProperty().get();
+	}
+
+	public void setClienteId(long clienteId) {
+		this.clienteIdProperty().set(clienteId);
+	}
+
+	public LongProperty clienteIdProperty() {
+		return this.clienteId;
+	}
+
+	@Column(name = "serie_id")
+	public java.lang.String getSerieId() {
+		return this.serieIdProperty().get();
+	}
+
+	public void setSerieId(final java.lang.String serieId) {
+		this.serieIdProperty().set(serieId);
+	}
+
+	public SimpleStringProperty serieIdProperty() {
+		return this.serieId;
+
+	}
+
+	public ObjectProperty<LocalDate> datProperty() {
+		return dat;
+	}
+
+	@Column(name = "DAT")
+	public LocalDate getDat() {
+		return datProperty().get();
+	}
+
+	public void setDat(LocalDate dat) {
+		datProperty().set(dat);
+	}
+
+	@Column(name = "empresa_id")
+	public Long getEmpresaId() {
+		return this.empresaId.get();
+	}
+
+	public void setEmpresaId(Long empresaId) {
+		this.empresaId.set(empresaId);
+	}
+
+	@Column(name = "forpag_id")
+	public Long getForpagId() {
+		return this.forpagId.get();
+	}
+
+	public void setForpagId(Long forpagId) {
+		this.forpagId.set(forpagId);
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id", insertable = false, updatable = false)
+	public Cliente getCliente() {
+		return this.clienteProperty().get();
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.clienteProperty().set(cliente);
+	}
+
+	public SimpleObjectProperty<Cliente> clienteProperty() {
+		return this.cliente;
+	}
+
+	// uni-directional many-to-one association to Empresa
+	@ManyToOne
+	@JoinColumn(name = "empresa_id", insertable = false, updatable = false)
+	public Empresa getEmpresa() {
+		return this.empresa.get();
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa.set(empresa);
+	}
+
+	public SimpleObjectProperty<Empresa> empresaProperty() {
+		return this.empresa;
+	}
+
+	// uni-directional many-to-one association to Formaspago
+	@ManyToOne
+	@JoinColumn(name = "forpag_id", insertable = false, updatable = false)
+	public Formaspago getFormaspago() {
+		return this.formaspago.get();
+	}
+
+	public void setFormaspago(Formaspago formaspago) {
+		this.formaspago.set(formaspago);
+	}
+
+	public SimpleObjectProperty<Formaspago> formaspagoProperty() {
+		return this.formaspago;
+	}
+
+	// uni-directional many-to-one association to Serie
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id", insertable = false, updatable = false),
+			@JoinColumn(name = "serie_id", referencedColumnName = "id", insertable = false, updatable = false), })
+	public Serie getSerie() {
+		return this.serie.get();
+	}
+
+	public void setSerie(Serie serie) {
+		this.serie.set(serie);
+	}
+
+	public SimpleObjectProperty<Serie> serieProperty() {
+		return this.serie;
+	}
+
+	@OneToMany(mappedBy = "factura")
+	public List<Factureslin> getFactureslins() {
 		return this.factureslins;
 	}
 
@@ -121,135 +234,88 @@ public class Factura implements Serializable {
 
 		return factureslin;
 	}
-*/
-	public Cliente getCliente() {
-		return this.cliente;
-	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Empresa getEmpresa() {
-		return this.empresa;
-	}
-
-	public Formaspago getFormaspago() {
-		return this.formaspago;
-	}
-
-	public void setFormaspago(Formaspago formaspago) {
-		this.formaspago = formaspago;
-	}
-
-	public Serie getSerie() {
-		return this.serie;
-	}
-
-	public void setSerie(Serie serie) {
-		this.serie = serie;
-	}
-
-	@Id
-	@SequenceGenerator(name = "FACTURAS_ID_GENERATOR", sequenceName = "FACTURA_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FACTURAS_ID_GENERATOR")
-	public Long getId() {
-		return this.id.get();
-	}
-
-	public void setId(Long id) {
-		this.id.set(id);
-	}
-
-
-	public  Integer getEjercicio() {
-		return this.ejercicio.get();
-	}
-
-	public  void setEjercicio(Integer ejercicio) {
-		this.ejercicio.set(ejercicio);
-	}
-
-
-	public  Long getNumero() {
-		return this.numero.get();
-	}
-
-	public void setNumero(Long numero) {
-		this.numero.set(numero);
-	}
-
-	public final SimpleObjectProperty<LocalDate> datProperty() {
-		return this.dat;
-	}
-
-	public final java.time.LocalDate getDat() {
-		return this.datProperty().get();
-	}
-
-	public final void setDat(final java.time.LocalDate dat) {
-		this.datProperty().set(dat);
-	}
-
-	public final SimpleObjectProperty<BigDecimal> baseirpfProperty() {
+	public SimpleObjectProperty<BigDecimal> baseirpfProperty() {
 		return this.baseirpf;
 	}
 
-	public final java.math.BigDecimal getBaseirpf() {
+	public java.math.BigDecimal getBaseirpf() {
 		return this.baseirpfProperty().get();
 	}
 
-	public final void setBaseirpf(final java.math.BigDecimal baseirpf) {
+	public void setBaseirpf(final java.math.BigDecimal baseirpf) {
 		this.baseirpfProperty().set(baseirpf);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> baseiva1Property() {
+	public SimpleObjectProperty<BigDecimal> baseiva1Property() {
 		return this.baseiva1;
 	}
 
-	public final java.math.BigDecimal getBaseiva1() {
+	public java.math.BigDecimal getBaseiva1() {
 		return this.baseiva1Property().get();
 	}
 
-	public final void setBaseiva1(final java.math.BigDecimal baseiva1) {
+	public void setBaseiva1(final java.math.BigDecimal baseiva1) {
 		this.baseiva1Property().set(baseiva1);
 	}
 
+	public SimpleObjectProperty<BigDecimal> baseiva2Property() {
+		return this.baseiva2;
+	}
 
+	public java.math.BigDecimal getBaseiva2() {
+		return this.baseiva2Property().get();
+	}
 
-	public final SimpleObjectProperty<BigDecimal> impbruProperty() {
+	public void setBaseiva2(final java.math.BigDecimal baseiva2) {
+		this.baseiva2Property().set(baseiva2);
+	}
+
+	public SimpleObjectProperty<BigDecimal> impbruProperty() {
 		return this.impbru;
 	}
 
-	public final java.math.BigDecimal getImpbru() {
+	public java.math.BigDecimal getImpbru() {
 		return this.impbruProperty().get();
 	}
 
-	public final void setImpbru(final java.math.BigDecimal impbru) {
+	public void setImpbru(final java.math.BigDecimal impbru) {
 		this.impbruProperty().set(impbru);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> impdtoProperty() {
+	public SimpleObjectProperty<BigDecimal> impdtoProperty() {
 		return this.impdto;
 	}
 
-	public final java.math.BigDecimal getImpdto() {
+	public java.math.BigDecimal getImpdto() {
 		return this.impdtoProperty().get();
 	}
 
-	public final void setImpdto(final java.math.BigDecimal impdto) {
+	public void setImpdto(final java.math.BigDecimal impdto) {
 		this.impdtoProperty().set(impdto);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> porirpfProperty() {
+	public LongProperty numeroProperty() {
+		return this.numero;
+	}
+
+	public long getNumero() {
+		return this.numeroProperty().get();
+	}
+
+	public void setNumero(final long numero) {
+		this.numeroProperty().set(numero);
+	}
+
+	public SimpleObjectProperty<BigDecimal> porirpfProperty() {
 		return this.porirpf;
 	}
 
-	public final java.math.BigDecimal getPorirpf() {
+	public java.math.BigDecimal getPorirpf() {
 		return this.porirpfProperty().get();
 	}
 
-	public final void setPorirpf(final java.math.BigDecimal porirpf) {
+	public void setPorirpf(final java.math.BigDecimal porirpf) {
 		this.porirpfProperty().set(porirpf);
 	}
 
@@ -257,86 +323,71 @@ public class Factura implements Serializable {
 		return this.poriva1;
 	}
 
-	public final java.math.BigDecimal getPoriva1() {
+	public java.math.BigDecimal getPoriva1() {
 		return this.poriva1Property().get();
 	}
 
-	public final void setPoriva1(final java.math.BigDecimal poriva1) {
+	public void setPoriva1(final java.math.BigDecimal poriva1) {
 		this.poriva1Property().set(poriva1);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> poriva2Property() {
+	public SimpleObjectProperty<BigDecimal> poriva2Property() {
 		return this.poriva2;
 	}
 
-	public final java.math.BigDecimal getPoriva2() {
+	public java.math.BigDecimal getPoriva2() {
 		return this.poriva2Property().get();
 	}
 
-	public final void setPoriva2(final java.math.BigDecimal poriva2) {
+	public void setPoriva2(final java.math.BigDecimal poriva2) {
 		this.poriva2Property().set(poriva2);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> totfacProperty() {
+	public SimpleObjectProperty<BigDecimal> totfacProperty() {
 		return this.totfac;
 	}
 
-	public final java.math.BigDecimal getTotfac() {
+	public java.math.BigDecimal getTotfac() {
 		return this.totfacProperty().get();
 	}
 
-	public final void setTotfac(final java.math.BigDecimal totfac) {
+	public void setTotfac(final java.math.BigDecimal totfac) {
 		this.totfacProperty().set(totfac);
 	}
 
-	public final SimpleObjectProperty<BigDecimal> baseiva2Property() {
-		return this.baseiva2;
+	public IntegerProperty ejercicioIdProperty() {
+		return this.ejercicioId;
 	}
 
-
-	public final java.math.BigDecimal getBaseiva2() {
-		return this.baseiva2Property().get();
+	@Column(name = "ejercicio_id")
+	public int getEjercicioId() {
+		return this.ejercicioIdProperty().get();
 	}
 
+	public void setEjercicioId(final int ejercicioId) {
+		this.ejercicioIdProperty().set(ejercicioId);
+	}
 
-	public final void setBaseiva2(final java.math.BigDecimal baseiva2) {
-		this.baseiva2Property().set(baseiva2);
+	public SimpleObjectProperty<BigDecimal> pordtoProperty() {
+		return this.pordto;
+	}
+
+	public java.math.BigDecimal getPordto() {
+		return this.pordtoProperty().get();
+	}
+
+	public void setPordto(final java.math.BigDecimal pordto) {
+		this.pordtoProperty().set(pordto);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Factura [id=");
-		builder.append(id);
-		builder.append(", baseirpf=");
-		builder.append(baseirpf);
-		builder.append(", baseiva1=");
-		builder.append(baseiva1);
-		builder.append(", baseiva2=");
-		builder.append(baseiva2);
-		builder.append(", dat=");
-		builder.append(dat);
-		builder.append(", ejercicio=");
-		builder.append(ejercicio);
-		builder.append(", impbru=");
-		builder.append(impbru);
-		builder.append(", impdto=");
-		builder.append(impdto);
-		builder.append(", numero=");
-		builder.append(numero);
-		builder.append(", porirpf=");
-		builder.append(porirpf);
-		builder.append(", poriva1=");
-		builder.append(poriva1);
-		builder.append(", poriva2=");
-		builder.append(poriva2);
-		builder.append(", totfac=");
-		builder.append(totfac);
-		builder.append("]");
-		return builder.toString();
+		return "Factura [id=" + id.get() + ", baseirpf=" + baseirpf.get() + ", baseiva1=" + baseiva1.get()
+				+ ", baseiva2=" + baseiva2.get() + ", clienteId=" + clienteId.get() + ", dat=" + dat + ", ejercicio="
+				+ ejercicioId.get() + ", empresaId=" + empresaId.get() + ", forpagId=" + forpagId.get() + ", impbru="
+				+ impbru.get() + ", pordto=" + pordto.get() + ", impdto=" + impdto.get() + ", numero=" + numero.get()
+				+ ", porirpf=" + porirpf.get() + ", poriva1=" + poriva1.get() + ", poriva2=" + poriva2.get()
+				+ ", serieId=" + serieId.get() + ", totfac=" + totfac.get() + ", cliente=" + cliente.getName() + "]";
 	}
-
-
-
 
 }

@@ -1,6 +1,5 @@
 package es.palmademallorca.bg.factuapp.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -8,37 +7,43 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.bg.factuapp.model.jpa.Serie;
+import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
-public class SeriesModelJpa implements ISeriesModel {
+public class ProductosService implements IProductosDAO {
 
     private final EntityManager entityManager;
 
-    public SeriesModelJpa(EntityManager entityManager) {
+    public ProductosService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public Serie getSeriePorId(Long id) {
-        return entityManager.find(Serie.class, id);
-    }
-    @Override
-    public List<Serie> getSeries() {
-    	TypedQuery<Serie> query =
-        		entityManager.createNamedQuery("Serie.findAll", Serie.class);
-        List<Serie> SerieJPAs = new ArrayList<>();
-        //String jpql = "SELECT f FROM SerieJPA f";
-        //TypedQuery<SerieJPA> query = entityManager.createQuery(jpql, SerieJPA.class);
-        SerieJPAs.addAll(query.getResultList());
-        return SerieJPAs;
+    public Producto getProductoPorId(String id) {
+        return entityManager.find(Producto.class, id);
     }
 
     @Override
-    public int insertar(Serie registro) {
+    public List<Producto> getProductosPorDem(String valor) {
+    	TypedQuery<Producto> query =
+        		entityManager.createNamedQuery("Producto.findByDem", Producto.class);
+    	query.setParameter("dem", "%" + valor + "%");
+        List<Producto> productos = query.getResultList();
+        return productos;
+    }
+    @Override
+    public List<Producto> getProductos() {
+        TypedQuery<Producto> query =
+        		entityManager.createNamedQuery("Producto.findAll", Producto.class);
+        List<Producto> productos = query.getResultList();
+        return productos;
+    }
+
+    @Override
+    public int insertar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.persist(registro);
+            entityManager.persist(producto);
             transaction.commit();
             return EXITO;
         } catch (EntityExistsException ex) {
@@ -50,11 +55,11 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int modificar(Serie registro) {
+    public int modificar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.merge(registro);
+            entityManager.merge(producto);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -66,12 +71,12 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int eliminar(Serie registro) {
+    public int eliminar(Producto producto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Serie SerieJPAAEliminar = entityManager.getReference(Serie.class, registro.getId());
-            entityManager.remove(SerieJPAAEliminar);
+        	Producto AEliminar = entityManager.getReference(Producto.class, producto.getId());
+            entityManager.remove(AEliminar);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -83,13 +88,13 @@ public class SeriesModelJpa implements ISeriesModel {
     }
 
     @Override
-    public int eliminar(List<Serie> lista) {
+    public int eliminar(List<Producto> productos) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Serie fila : lista) {
-                Serie SerieJPAAEliminar = entityManager.getReference(Serie.class, fila.getId());
-                entityManager.remove(SerieJPAAEliminar);
+            for (Producto ProductoJPA : productos) {
+            	Producto AEliminar = entityManager.getReference(Producto.class, ProductoJPA.getId());
+                entityManager.remove(AEliminar);
             }
             transaction.commit();
             return EXITO;
@@ -100,7 +105,6 @@ public class SeriesModelJpa implements ISeriesModel {
             return FALLO;
         }
     }
-
 
 
 }

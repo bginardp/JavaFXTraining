@@ -11,8 +11,8 @@ import javax.persistence.metamodel.Metamodel;
 
 public class EntityManagerProvider {
 
-	private  EntityManagerFactory entityManagerFactory;
-	private  static EntityManager entityManager;
+	private EntityManagerFactory entityManagerFactory;
+	private static EntityManager entityManager;
 	private static EntityManagerProvider provider;
 
 	private EntityManagerProvider() {
@@ -20,7 +20,6 @@ public class EntityManagerProvider {
 	}
 
 	private void initEntityManager() {
-		System.out.println("Constructor");
 		entityManagerFactory = Persistence.createEntityManagerFactory("factuPU");
 		entityManager = entityManagerFactory.createEntityManager();
 	}
@@ -47,7 +46,6 @@ public class EntityManagerProvider {
 	}
 
 	public static <T> void printAttributesSize(T param) {
-		System.out.println("Parametro:"+param);
 		Metamodel metamodel = entityManager.getMetamodel();
 		ManagedType<T> type1 = metamodel.managedType((Class<T>) param);
 		Set<Attribute<? super T, ?>> attributes2 = type1.getAttributes();

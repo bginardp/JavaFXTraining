@@ -8,31 +8,33 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
+import es.palmademallorca.bg.factuapp.model.jpa.Tipiva;
 
-public class ForPagModel implements IForPagModel {
+public class TipivaService implements ITipivaDAO {
 
     private final EntityManager entityManager;
 
-    public ForPagModel(EntityManager entityManager) {
+    public TipivaService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public Formaspago getForpagPorId(Long id) {
-        return entityManager.find(Formaspago.class, id);
+    public Tipiva getTipivaPorId(Long id) {
+        return entityManager.find(Tipiva.class, id);
     }
     @Override
-    public List<Formaspago> getForpag() {
-    	TypedQuery<Formaspago> query =
-        		entityManager.createNamedQuery("Forpag.findAll", Formaspago.class);
-        List<Formaspago> llista = new ArrayList<>();
-           llista.addAll(query.getResultList());
-        return llista;
+    public List<Tipiva> getTipiva() {
+    	TypedQuery<Tipiva> query =
+        		entityManager.createNamedQuery("Tipiva.findAll", Tipiva.class);
+        List<Tipiva> TipivaJPAs = new ArrayList<>();
+        //String jpql = "SELECT f FROM TipivaJPA f";
+        //TypedQuery<TipivaJPA> query = entityManager.createQuery(jpql, TipivaJPA.class);
+        TipivaJPAs.addAll(query.getResultList());
+        return TipivaJPAs;
     }
 
     @Override
-    public int insertar(Formaspago registro) {
+    public int insertar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -48,7 +50,7 @@ public class ForPagModel implements IForPagModel {
     }
 
     @Override
-    public int modificar(Formaspago registro) {
+    public int modificar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
@@ -64,12 +66,12 @@ public class ForPagModel implements IForPagModel {
     }
 
     @Override
-    public int eliminar(Formaspago registro) {
+    public int eliminar(Tipiva registro) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Formaspago regABorrar = entityManager.getReference(Formaspago.class, registro.getId());
-            entityManager.remove(regABorrar);
+            Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, registro.getId());
+            entityManager.remove(TipivaJPAAEliminar);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -81,13 +83,13 @@ public class ForPagModel implements IForPagModel {
     }
 
     @Override
-    public int eliminar(List<Formaspago> lista) {
+    public int eliminar(List<Tipiva> lista) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Formaspago fila : lista) {
-                Formaspago regABorrar = entityManager.getReference(Formaspago.class, fila.getId());
-                entityManager.remove(regABorrar);
+            for (Tipiva fila : lista) {
+                Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, fila.getId());
+                entityManager.remove(TipivaJPAAEliminar);
             }
             transaction.commit();
             return EXITO;

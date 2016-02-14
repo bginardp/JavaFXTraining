@@ -13,13 +13,13 @@ public interface IFacturasDAO {
 
     public Factura getFacturaPorId(Long id);
 
-    public Factura getFacturaPorEmpresaEjeSerieNumero(Long empresa, Long ejercicio, String serie, BigDecimal num);
+    public Factura getFacturaPorEmpresaEjeSerieNumero(Long empresa, Integer ejercicio, String serie, BigDecimal num);
 
-    public BigDecimal getNewNumeroFactura(Long empresa, Long ejercicio, String serie);
+    public BigDecimal getNewNumeroFactura(Long empresa, Integer ejercicio, String serie);
 
-    public List<Factura> getAllFacturas(Long empresa, Long ejercicio);
+    public List<Factura> getAllFacturas(Long empresa, Integer ejercicio);
 
-    public List<Factura> getAllFacturas(Long empresa);
+    public List<Factura> findFacturas(Long empresa, Integer ejercicio, String criteria);
 
     public int insertar(Factura factura);
 

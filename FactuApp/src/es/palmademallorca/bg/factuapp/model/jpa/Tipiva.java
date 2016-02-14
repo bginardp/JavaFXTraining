@@ -1,20 +1,20 @@
 package es.palmademallorca.bg.factuapp.model.jpa;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigDecimal;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.FloatProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 
 /**

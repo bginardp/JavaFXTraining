@@ -9,6 +9,9 @@
 		<class>es.palmademallorca.bg.factuapp.model.jpa.Tipiva</class>
 		<class>es.palmademallorca.bg.factuapp.model.jpa.Cliente</class>
 		<class>es.palmademallorca.bg.factuapp.model.jpa.Factura</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Factureslin</class>
+		<class>es.palmademallorca.bg.common.util.dateutils.LocalDateAttributeConverter</class>
+		<class>es.palmademallorca.bg.factuapp.model.jpa.Ejercicio</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres" />

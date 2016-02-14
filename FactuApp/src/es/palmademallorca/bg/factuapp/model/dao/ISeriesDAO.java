@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.palmademallorca.bg.factuapp.model.jpa.Serie;
 
-public interface ISeriesModel {
+public interface ISeriesDAO {
 
     public static final int EXITO = 0;
 

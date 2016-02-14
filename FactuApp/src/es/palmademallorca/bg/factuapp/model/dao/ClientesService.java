@@ -8,37 +8,36 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import es.palmademallorca.bg.factuapp.model.jpa.Tipiva;
+import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
+import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
-public class TipivaModel implements ITipivaModel {
+public class ClientesService implements IClientesDAO {
 
     private final EntityManager entityManager;
 
-    public TipivaModel(EntityManager entityManager) {
+    public ClientesService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public Tipiva getTipivaPorId(Long id) {
-        return entityManager.find(Tipiva.class, id);
+    public Cliente getClientePorId(Long id) {
+        return entityManager.find(Cliente.class, id);
     }
     @Override
-    public List<Tipiva> getTipiva() {
-    	TypedQuery<Tipiva> query =
-        		entityManager.createNamedQuery("Tipiva.findAll", Tipiva.class);
-        List<Tipiva> TipivaJPAs = new ArrayList<>();
-        //String jpql = "SELECT f FROM TipivaJPA f";
-        //TypedQuery<TipivaJPA> query = entityManager.createQuery(jpql, TipivaJPA.class);
-        TipivaJPAs.addAll(query.getResultList());
-        return TipivaJPAs;
+    public List<Cliente> getClientes() {
+        List<Cliente> ClienteJPAs = new ArrayList<>();
+        String jpql = "SELECT f FROM Cliente f";
+        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
+        ClienteJPAs.addAll(query.getResultList());
+        return ClienteJPAs;
     }
 
     @Override
-    public int insertar(Tipiva registro) {
+    public int insertar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.persist(registro);
+            entityManager.persist(ClienteJPA);
             transaction.commit();
             return EXITO;
         } catch (EntityExistsException ex) {
@@ -50,11 +49,11 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int modificar(Tipiva registro) {
+    public int modificar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.merge(registro);
+            entityManager.merge(ClienteJPA);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -66,12 +65,12 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int eliminar(Tipiva registro) {
+    public int eliminar(Cliente ClienteJPA) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, registro.getId());
-            entityManager.remove(TipivaJPAAEliminar);
+            Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
+            entityManager.remove(ClienteJPAAEliminar);
             transaction.commit();
             return EXITO;
         } catch (IllegalArgumentException ex) {
@@ -83,13 +82,13 @@ public class TipivaModel implements ITipivaModel {
     }
 
     @Override
-    public int eliminar(List<Tipiva> lista) {
+    public int eliminar(List<Cliente> ClienteJPAs) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Tipiva fila : lista) {
-                Tipiva TipivaJPAAEliminar = entityManager.getReference(Tipiva.class, fila.getId());
-                entityManager.remove(TipivaJPAAEliminar);
+            for (Cliente ClienteJPA : ClienteJPAs) {
+                Cliente ClienteJPAAEliminar = entityManager.getReference(Cliente.class, ClienteJPA.getId());
+                entityManager.remove(ClienteJPAAEliminar);
             }
             transaction.commit();
             return EXITO;
@@ -101,6 +100,14 @@ public class TipivaModel implements ITipivaModel {
         }
     }
 
+	@Override
+	public List<Cliente> getClientesPorNombre(String valor) {
+		TypedQuery<Cliente> query =
+        		entityManager.createNamedQuery("Cliente.findByNom", Cliente.class);
+    	query.setParameter("nom", "%" + valor + "%");
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+	}
 
 
 }

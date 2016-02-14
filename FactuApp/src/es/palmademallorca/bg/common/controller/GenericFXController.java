@@ -5,13 +5,13 @@ import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
 
-import es.palmademallorca.bg.factuapp.MainApp2;
+import es.palmademallorca.bg.factuapp.MainApp;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
 import javafx.fxml.Initializable;
 
 public abstract class GenericFXController implements Initializable, IGenericController {
 	private static EntityManager em = EntityManagerProvider.getProvider().getEntityManager();
-	private MainApp2 mainApp;
+	private MainApp mainApp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -20,10 +20,10 @@ public abstract class GenericFXController implements Initializable, IGenericCont
 	}
 
 
-	public MainApp2 getMainApp() {
+	public MainApp getMainApp() {
 		return mainApp;
 	}
-	public void setMainApp(MainApp2 mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		postInitialize();
 	}

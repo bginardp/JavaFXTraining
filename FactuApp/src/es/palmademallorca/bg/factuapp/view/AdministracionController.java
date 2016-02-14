@@ -3,7 +3,7 @@ package es.palmademallorca.bg.factuapp.view;
 import java.io.IOException;
 import java.util.Optional;
 
-import es.palmademallorca.bg.factuapp.MainApp2;
+import es.palmademallorca.bg.factuapp.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -20,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
 public class AdministracionController {
 
 	// Reference to the main application
-	private MainApp2 mainApp;
+	private MainApp mainApp;
 
 	/**
 	 * Is called by the main application to give a reference back to itself.
@@ -32,7 +32,7 @@ public class AdministracionController {
 
 	}
 
-	public void setMainApp(MainApp2 mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
 	}
@@ -54,7 +54,7 @@ public class AdministracionController {
 		System.out.println("empresa");
 		try {
 			// Load the fxml file and set into the center of the main layout
-			FXMLLoader loader = new FXMLLoader(MainApp2.class.getResource("view/Empresa.fxml"));
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Empresa.fxml"));
 			AnchorPane overviewPage = (AnchorPane) loader.load();
 			mainApp.getRootLayout().setCenter(overviewPage);
 

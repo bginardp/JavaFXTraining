@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import es.palmademallorca.bg.common.controller.GenericFXController;
-import es.palmademallorca.bg.factuapp.model.dao.IProductosModel;
-import es.palmademallorca.bg.factuapp.model.dao.ProductosModel;
+import es.palmademallorca.bg.factuapp.model.dao.IProductosDAO;
+import es.palmademallorca.bg.factuapp.model.dao.ProductosService;
 import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ public class ProductoController extends GenericFXController {
 	// private MainApp2 mainApp;
 	// private static EntityManager em =
 	// EntityManagerProvider.getProvider().getEntityManager();
-	private IProductosModel model;
+	private IProductosDAO model;
 
 	@FXML
 	private ObservableList<Producto> productosList = FXCollections.observableArrayList();
@@ -70,7 +70,7 @@ public class ProductoController extends GenericFXController {
 	 */
 	public void cargarDatosTabla() {
 
-		model = new ProductosModel(getEm());
+		model = new ProductosService(getEm());
 		productosList = FXCollections.observableArrayList(model.getProductos());
 		tableView.setItems(productosList);
 

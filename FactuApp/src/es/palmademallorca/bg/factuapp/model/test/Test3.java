@@ -1,8 +1,5 @@
-package es.palmademallorca.bg.factuapp.test;
+package es.palmademallorca.bg.factuapp.model.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,11 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.palmademallorca.bg.factuapp.model.dao.ClientesModelJpa;
-import es.palmademallorca.bg.factuapp.model.dao.IClientesModel;
-import es.palmademallorca.bg.factuapp.model.dao.ITipivaModel;
-import es.palmademallorca.bg.factuapp.model.dao.TipivaModel;
-import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
+import es.palmademallorca.bg.factuapp.model.dao.ITipivaDAO;
+import es.palmademallorca.bg.factuapp.model.dao.TipivaService;
 import es.palmademallorca.bg.factuapp.model.jpa.Tipiva;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
 
@@ -42,13 +36,15 @@ public class Test3 {
 
 	@Test
 	public void test() {
-		ITipivaModel model = new TipivaModel(em);
+		ITipivaDAO model = new TipivaService(em);
 		List<Tipiva> lista= model.getTipiva();
 
 	    for (Tipiva e:lista) {
 			System.out.println(e);
 
 		}
+	    
+	    
 	}
 
 }
