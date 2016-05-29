@@ -30,8 +30,8 @@ public class ProductoController extends GenericFXController {
 	// EntityManagerProvider.getProvider().getEntityManager();
 	private IProductosDAO model;
 
-	@FXML
 	private ObservableList<Producto> productosList = FXCollections.observableArrayList();
+
 	@FXML
 	private TableView<Producto> tableView;
 	@FXML

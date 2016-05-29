@@ -5,21 +5,18 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import es.palmademallorca.bg.common.controller.GenericFXController;
+import es.palmademallorca.bg.factuapp.FactuApp;
 import es.palmademallorca.bg.factuapp.MainApp;
 import es.palmademallorca.bg.factuapp.model.dao.EjercicioService;
 import es.palmademallorca.bg.factuapp.model.dao.EmpresaService;
 import es.palmademallorca.bg.factuapp.model.dao.IEjercicioDAO;
 import es.palmademallorca.bg.factuapp.model.dao.IEmpresaDAO;
-import es.palmademallorca.bg.factuapp.model.dao.IProductosDAO;
-import es.palmademallorca.bg.factuapp.model.dao.ProductosService;
 import es.palmademallorca.bg.factuapp.model.errors.Messages;
 import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
 import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,6 +29,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 /**
@@ -65,6 +63,8 @@ public class RootLayoutController extends GenericFXController {
 	private Button cambiarButton;
 	@FXML
 	private Button facturasButton;
+	@FXML
+	private Button altaFacturaBtn;
 
 	/**
 	 * Is called by the main application to give a reference back to itself.
@@ -82,7 +82,10 @@ public class RootLayoutController extends GenericFXController {
 		super.initialize(location, resources);
 		aplicacioL.setText("Facturación V1.0");
 		ejercicioLabel.setText("");
-		empresaLabel.setText("");
+		// empresaLabel.setText("");
+		empresaLabel.textProperty().bind(Bindings.selectString(empresasCombo.getSelectionModel().selectedItemProperty(),"dem"));
+		ejercicioLabel.textProperty().bind(Bindings.selectString(ejerciciosCombo.getSelectionModel().selectedItemProperty(),"id"));
+
 		carregarDades();
 	}
 
@@ -95,6 +98,7 @@ public class RootLayoutController extends GenericFXController {
 
 		//facturasButton.disableProperty().bind(boolBind);
 		facturasButton.disableProperty().bind(Bindings.or(empresaLabel.textProperty().isEqualTo(""),ejercicioLabel.textProperty().isEqualTo("")));
+		altaFacturaBtn.disableProperty().bind(Bindings.or(empresaLabel.textProperty().isEqualTo(""),ejercicioLabel.textProperty().isEqualTo("")));
 	}
 
 	@FXML
@@ -146,6 +150,28 @@ public class RootLayoutController extends GenericFXController {
 			e.printStackTrace();
 		}
 	}
+
+	@FXML
+	private void handleFactura() {
+
+		try {
+			// Load the fxml file and set into the center of the main layout
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Factura.fxml"));
+
+			VBox node = (VBox) loader.load();
+			// this.contentApp.getChildren().add(node);
+			getMainApp().getRootLayout().setCenter(node);
+
+			// Give the controller access to the main app
+			FacturaController controller = loader.getController();
+			controller.setMainApp(getMainApp());
+
+		} catch (IOException e) {
+			// Exception gets thrown if the fxml file could not be loaded
+			e.printStackTrace();
+		}
+	}
+
 
 	@FXML
 	private void handleFacturas() {
@@ -213,15 +239,22 @@ public class RootLayoutController extends GenericFXController {
 
 	@FXML
 	private void handleCambiar() {
-		System.out.println("is empresa label not empty? " + empresaLabel.textProperty().isNotEmpty().get());
+//		System.out.println("is empresa label not empty? " + empresaLabel.textProperty().isNotEmpty().get());
+	    empresaLabel.textProperty().unbind();
 		empresaLabel.setText(null);
-		System.out.println("is empresa label not empty? " + empresaLabel.textProperty().isNotEmpty().get());
+		empresasCombo.setValue(null);
+//		System.out.println("is empresa label not empty? " + empresaLabel.textProperty().isNotEmpty().get());
 		empresaLabel.setVisible(false);
+		empresaLabel.textProperty().bind(Bindings.selectString(empresasCombo.getSelectionModel().selectedItemProperty(),"dem"));
 		empresasCombo.setVisible(true);
-		System.out.println("is ejercicio label not empty? " + ejercicioLabel.textProperty().isNotEmpty().get());
+//		System.out.println("is ejercicio label not empty? " + ejercicioLabel.textProperty().isNotEmpty().get());
+	    ejercicioLabel.textProperty().unbind();
 		ejercicioLabel.setText("");
-		System.out.println("is ejercicio label not empty? " + ejercicioLabel.textProperty().isNotEmpty().get());
+		ejerciciosCombo.setValue(null);
+//		System.out.println("is ejercicio label not empty? " + ejercicioLabel.textProperty().isNotEmpty().get());
 		ejercicioLabel.setVisible(false);
+		ejercicioLabel.textProperty().bind(Bindings.selectString(ejerciciosCombo.getSelectionModel().selectedItemProperty(),"id"));
+
 		ejerciciosCombo.setVisible(true);
 		cambiarButton.setVisible(false);
 		this.getMainApp().setEmpresa(null);
@@ -277,9 +310,10 @@ public class RootLayoutController extends GenericFXController {
 
 	private void empresaSeleccionada(Empresa empresa) {
 		empresaLabel.setVisible(true);
-		empresaLabel.setText(empresa.getDem());
+//		empresaLabel.setText(empresa.getDem());
+//		empresasCombo.setValue(null);
 		empresasCombo.setVisible(false);
-		empresasCombo.setValue(null);
+
 		this.getMainApp().setEmpresa(empresa);
 		if (this.getMainApp().isEjercicioLoaded()) {
 			cambiarButton.setVisible(true);
@@ -289,12 +323,14 @@ public class RootLayoutController extends GenericFXController {
 
 	private void ejercicioSeleccionado(Ejercicio ejercicio) {
 		ejercicioLabel.setVisible(true);
-		ejercicioLabel.setText(ejercicio.toString());
+	//	ejercicioLabel.setText(ejercicio.toString());
 		ejerciciosCombo.setVisible(false);
-		ejerciciosCombo.setValue(null);
+
+		//ejerciciosCombo.setValue(null);
 		this.getMainApp().setEjercicio(ejercicio);
 		cambiarButton.setVisible(true);
 
 	}
+
 
 }

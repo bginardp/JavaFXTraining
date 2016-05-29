@@ -161,7 +161,6 @@ public class Cliente implements Serializable {
 	 * Methods get/set the fields of database
 	 */
 
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

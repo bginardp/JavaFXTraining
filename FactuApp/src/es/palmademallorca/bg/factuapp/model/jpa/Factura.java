@@ -165,6 +165,10 @@ public class Factura implements Serializable {
 		return this.cliente;
 	}
 
+	public String getNomCliente() {
+		return this.getCliente().getNom();
+	}
+
 	// uni-directional many-to-one association to Empresa
 	@ManyToOne
 	@JoinColumn(name = "empresa_id", insertable = false, updatable = false)

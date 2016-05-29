@@ -32,8 +32,8 @@ public class ClienteController implements Initializable {
 	private static EntityManager em = EntityManagerProvider.getProvider().getEntityManager();
 
 	private IClientesDAO model;
-	@FXML
 	private ObservableList<Cliente> clientesList = FXCollections.observableArrayList();
+
 	@FXML
 	private TableView<Cliente> tableView;
 	@FXML
@@ -270,27 +270,6 @@ public class ClienteController implements Initializable {
 		this.nombreCol = nombreCol;
 	}
 
-	/*
-	@FXML
-	private void irInicioContenido(ActionEvent event) {
-		controlador.setScreen(MainApp.contenidoID);
-	}
 
-	@FXML
-	private void salir(ActionEvent event) {
-		this.controlesBasicos.salirSistema();
-	}
-
-	@FXML
-	private void cerrarSesion(ActionEvent event) {
-
-		controlador.setScreen(MainApp.loginID);
-	}
-
-	@Override
-	public void setScreenParent(ScreensController pantallaPadre) {
-		controlador = pantallaPadre;
-
-	}*/
 
 }

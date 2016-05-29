@@ -51,11 +51,21 @@
                   <Insets left="10.0" right="10.0" top="15.0" />
                </HBox.margin>
             </Label>
-            <Region prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: red;" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <Button fx:id="altaFacturaBtn" mnemonicParsing="false" onAction="#handleFactura" text="Alta Factura" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
             <HBox alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
                      <children>
                         <Label fx:id="empresaLabel" text="empresa" textFill="#f00707" visible="false">
                            <font>
@@ -68,6 +78,9 @@
                            </font>
                         </Label>
                      </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="2.0">
                      <children>

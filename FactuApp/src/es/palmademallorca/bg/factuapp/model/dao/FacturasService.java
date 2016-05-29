@@ -26,13 +26,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
+
 
 import es.palmademallorca.bg.common.model.dao.AbstractJpaDao;
+import es.palmademallorca.bg.common.util.dateutils.DateUtil;
 import es.palmademallorca.bg.factuapp.model.errors.FactuException;
 import es.palmademallorca.bg.factuapp.model.errors.Messages;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
+
 
 public class FacturasService implements IFacturasDAO {
 
@@ -146,16 +148,7 @@ public class FacturasService implements IFacturasDAO {
 	public List<Factura> findFacturas(Long empresa, Integer ejercicio, String criteria) {
 		LocalDate tempDate = null;
 		List<Factura> lista = null;
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			tempDate = LocalDate.parse(criteria, formatter);
-		} catch (DateTimeParseException e) {
-			;
-		}
-
-		// tempDate=DateUtils.parseDateStrictly(criteria, new String[]
-		// {"yyyy/MM/dd","dd/MM/yyyy","ddMMyyyy"});
-
+        tempDate=DateUtil.parseLD(criteria);
 		if (tempDate != null) {
 			lista = em.createNamedQuery("Factura.findFacturasByDate").setParameter("empresa_id", empresa)
 					.setParameter("ejercicio", ejercicio).setParameter("criteria", tempDate).getResultList();

@@ -1,6 +1,8 @@
 package es.palmademallorca.bg.factuapp;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import es.palmademallorca.bg.common.util.properties.PropertiesCache;
 import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
@@ -42,6 +44,12 @@ public class MainApp extends Application {
 	public void initRootLayout() {
 		try {
 			// Load root layout from fxml file.
+			Locale locale = new Locale("es","ES");
+			Locale.setDefault(locale);
+			
+			NumberFormat currenyFormat = NumberFormat.getCurrencyInstance(locale);
+			
+			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();

@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @NamedQuery(name="Factureslin.findAll", query="SELECT f FROM Factureslin f")
 public class Factureslin implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private LongProperty id=new SimpleLongProperty();
+	private SimpleLongProperty id=new SimpleLongProperty();
 	private SimpleObjectProperty<BigDecimal> cantidad=new SimpleObjectProperty();
 	private SimpleStringProperty dem=new SimpleStringProperty();
 	private SimpleObjectProperty<BigDecimal> importe=new SimpleObjectProperty();
@@ -28,14 +28,14 @@ public class Factureslin implements Serializable {
 	private SimpleObjectProperty<BigDecimal> preu=new SimpleObjectProperty();
 	private SimpleStringProperty producteId=new SimpleStringProperty();
 	private SimpleObjectProperty<BigDecimal> requiv=new SimpleObjectProperty();
-	private LongProperty tipivaId=new SimpleLongProperty();
+	private SimpleLongProperty tipivaId=new SimpleLongProperty();
 	private SimpleObjectProperty<Factura> factura=new SimpleObjectProperty();
 
 	public Factureslin() {
 	}
 
 
-	public LongProperty idProperty() {
+	public SimpleLongProperty idProperty() {
 		return this.id;
 	}
 
@@ -170,7 +170,7 @@ public class Factureslin implements Serializable {
 	}
 
 
-	public LongProperty tipivaIdProperty() {
+	public SimpleLongProperty tipivaIdProperty() {
 		return this.tipivaId;
 	}
 
