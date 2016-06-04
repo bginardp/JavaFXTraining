@@ -1,4 +1,4 @@
-package es.palma.servlet;
+package es.palma.provajsp1.controller;
 
 import java.io.IOException;
 
@@ -28,8 +28,10 @@ public class HomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("################################## HomeServlet.doGet ###################################");
 		RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/WEB-INF/pages/login.jsp");
+                .getRequestDispatcher("/pages/login.jsp");
         dispatcher.forward(request, response);
 	}
 

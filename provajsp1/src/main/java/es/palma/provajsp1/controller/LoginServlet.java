@@ -1,4 +1,4 @@
-package es.palma.servlet;
+package es.palma.provajsp1.controller;
 
 import java.io.IOException;
 
@@ -7,6 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import es.palma.provajsp1.dao.UserDAO;
+import es.palma.provajsp1.entities.UserBean;
 
 /**
  * Servlet implementation class ProvaServlet
@@ -18,29 +21,30 @@ public class LoginServlet extends HttpServlet {
      * Default constructor.
      */
     public LoginServlet() {
-       System.out.println("################################## Servlet inicialitzat ###################################");
+       System.out.println("################################## LoginServlet inicialitzat ###################################");
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    	System.out.println("################## process Request ######################");
+    	System.out.println("################## LoginServlet processRequest ######################");
+       
+        UserBean usuari =new UserBean();
+        usuari.setUserName(request.getParameter("txtUserName"));
+        usuari.setPassword(request.getParameter("txtPass"));
 
-
-        String name=request.getParameter("txtUserName");
-        String pass=request.getParameter("txtPass");
-
-        if(name.equalsIgnoreCase("bernat")&& pass.equalsIgnoreCase("1234"))
-        {
-        	System.out.println("################################## Success ###################################");
-              RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/pages/success.jsp");
-            request.setAttribute("uname", name);
+        usuari=UserDAO.login(usuari);
+        
+        if (usuari.isValid()) {
+        	System.out.println("################################## LoginServlet Success ###################################");
+              RequestDispatcher rd=request.getRequestDispatcher("/pages/success.jsp");
+            request.setAttribute("uname", usuari.getFirstName());
             rd.forward(request, response);
         }
         else
         	/* if name&pass not match then it display error page */
         {
-        	System.out.println("################################## Error ###################################");
-        	request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request, response);
+        	System.out.println("################################## LoginServlet Error ###################################");
+        	request.getRequestDispatcher("/pages/error.jsp").forward(request, response);
         }
 
     }
