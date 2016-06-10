@@ -13,18 +13,29 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>es.palma.provajsp1.controller.LoginServlet</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>LoginServlet</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<description></description>
 		<display-name>HomeServlet</display-name>
 		<servlet-name>HomeServlet</servlet-name>
 		<servlet-class>es.palma.provajsp1.controller.HomeServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description></description>
+		<display-name>ListUsersServlet</display-name>
+		<servlet-name>ListUsersServlet</servlet-name>
+		<servlet-class>es.palma.provajsp1.controller.ListUsersServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>LoginServlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HomeServlet</servlet-name>
 		<url-pattern>/HomeServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListUsersServlet</servlet-name>
+		<url-pattern>/ListUsers</url-pattern>
 	</servlet-mapping>
 </web-app>  

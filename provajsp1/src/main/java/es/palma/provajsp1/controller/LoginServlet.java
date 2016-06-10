@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.palma.provajsp1.dao.UserDAO;
+import es.palma.provajsp1.dao.UserDAOImpl;
 import es.palma.provajsp1.entities.UserBean;
 
 /**
@@ -31,8 +32,8 @@ public class LoginServlet extends HttpServlet {
         UserBean usuari =new UserBean();
         usuari.setUserName(request.getParameter("txtUserName"));
         usuari.setPassword(request.getParameter("txtPass"));
-
-        usuari=UserDAO.login(usuari);
+        UserDAO userDAO=new UserDAOImpl();
+        usuari=userDAO.login(usuari);
         
         if (usuari.isValid()) {
         	System.out.println("################################## LoginServlet Success ###################################");
