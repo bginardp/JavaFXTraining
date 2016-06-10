@@ -8,5 +8,5 @@ public interface UserDAO {
 
 	public UserBean login(UserBean bean);
 
-	public List<UserBean> usersList();
+	public List<UserBean> getUserList();
 }

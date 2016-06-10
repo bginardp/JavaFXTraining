@@ -1,6 +1,8 @@
 package es.palma.provajsp1.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,17 +30,12 @@ public class ListUsersServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     	System.out.println("################## ListUsersServlet processRequest ######################");
-       
-        UserBean usuari =new UserBean();
-        usuari.setUserName(request.getParameter("txtUserName"));
-        usuari.setPassword(request.getParameter("txtPass"));
+        List<UserBean> llista=null;
         UserDAO userDAO=new UserDAOImpl();
-        usuari=userDAO.login(usuari);
-        
-        if (usuari.isValid()) {
-        	System.out.println("################################## ListUsersServlet Success ###################################");
-              RequestDispatcher rd=request.getRequestDispatcher("/pages/listusers.jsp");
-            request.setAttribute("uname", usuari.getFirstName());
+        llista=userDAO.getUserList();
+        if (llista!=null) {
+            RequestDispatcher rd=request.getRequestDispatcher("/pages/listusers.jsp");
+            request.setAttribute("users", llista);
             rd.forward(request, response);
         }
         else

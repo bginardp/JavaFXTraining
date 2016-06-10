@@ -108,11 +108,15 @@ public UserBean login(UserBean bean) {
 return bean;
 }
 
-
-
 @Override
-public List<UserBean> usersList() {
+public List<UserBean> getUserList() {
 	// TODO Auto-generated method stub
-	return null;
+	ArrayList<UserBean> llista = new ArrayList<UserBean>();
+	llista.add(new UserBean("bginardp@gmail.com","1234","Bernat","Ginard"));
+	llista.add(new UserBean("lginardl@gmail.com","1234","Laia","Ginard"));
+	llista.add(new UserBean("aginardr@gmail.com","1234","Albert","Ginard"));
+	llista.add(new UserBean("illabress@gmail.com","1234","Isabel","Llabres"));
+	return llista;
 }	
+
 }
