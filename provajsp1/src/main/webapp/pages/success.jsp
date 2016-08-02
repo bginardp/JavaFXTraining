@@ -1,33 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<html>
+<html lang="ca">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Success Page</title>
+<jsp:include page="/include/estilos.jsp"></jsp:include>
+<jsp:include page="/include/header.jsp"></jsp:include>
 </head>
 <body>
-<h1>Hola mon</h1>
-<%
+<div class="container">
+	<div class="row">
+		<div class="jumbotron">
+		    <h1>Hi welcome nuñez ÇÇÇÇ ${uname} </h1>
+	    </div>
+	</div>
 
-String name=(String)request.getAttribute("uname");
-if(name!=null)
-{
-    %>
-    <h1>Hi welcome <%=name %> </h1>
-    <a href="/provajsp1/HomeServlet">Back to Login</a>
-<%
-} else { %>
-<h1>No ha arribat el nom</h1>
-<%
-}
- %>
+	<div class="row">
+		<a href="Home">Back to Login</a>
+		<a href="/provajsp1/llista">Llista d'usuaris</a>
+		        
+	</div>
 
-<div>
-<a href="/provajsp1/llista">Llista d'usuaris</a>
-         
 </div>
-
-
 </body>
 </html>

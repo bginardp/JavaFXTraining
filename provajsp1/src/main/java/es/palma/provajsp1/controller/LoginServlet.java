@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
     	System.out.println("################## LoginServlet processRequest ######################");
        
         UserBean usuari =new UserBean();
-        usuari.setUserName(request.getParameter("txtUserName"));
+        usuari.setId(request.getParameter("txtUserName"));
         usuari.setPassword(request.getParameter("txtPass"));
         UserDAO userDAO=new UserDAOImpl();
         usuari=userDAO.login(usuari);
@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         if (usuari.isValid()) {
         	System.out.println("################################## LoginServlet Success ###################################");
               RequestDispatcher rd=request.getRequestDispatcher("/pages/success.jsp");
-            request.setAttribute("uname", usuari.getFirstName());
+            request.setAttribute("uname", usuari.getNomComplet());
             rd.forward(request, response);
         }
         else
@@ -52,9 +52,6 @@ public class LoginServlet extends HttpServlet {
         }
 
     }
-
-
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
