@@ -13,30 +13,22 @@ import java.util.function.Function;
 
 import javax.persistence.EntityManager;
 
-import org.apache.commons.lang3.StringUtils;
-import org.controlsfx.control.spreadsheet.GridBase;
-
 import es.palmademallorca.bg.common.controller.GenericFXController;
 import es.palmademallorca.bg.common.controller.IGenericController;
 import es.palmademallorca.bg.factuapp.FactuApp;
 import es.palmademallorca.bg.factuapp.MainApp;
 import es.palmademallorca.bg.factuapp.model.dao.FacturasService;
 import es.palmademallorca.bg.factuapp.model.dao.IFacturasDAO;
-import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
 import es.palmademallorca.bg.factuapp.model.managers.EntityManagerProvider;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Skin;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,7 +39,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 
 /**
@@ -62,7 +53,7 @@ public class FacturasController extends GenericFXController implements Initializ
 	private TableView<Factura> table;
 	private Long empresaId;
 	private Integer ejercicio;
-	private long idFactura;
+	
 
 	@FXML
 	private AnchorPane panel;
@@ -70,6 +61,8 @@ public class FacturasController extends GenericFXController implements Initializ
 	private TextField cercarText;
 	@FXML
 	private Button cercarBtn;
+	@FXML
+	private Button ampliaFacturaBtn;
 	@FXML
 	private VBox vbox;
 
@@ -96,6 +89,11 @@ public class FacturasController extends GenericFXController implements Initializ
 		table = new TableView<>();
 		table.setEditable(false);
 
+		/*TableColumn actionCol = new TableColumn( "Action" );
+        actionCol.setCellValueFactory( new PropertyValueFactory<>( "DUMMY" ) );
+        actionCol.setCellFactory( setupCellFactoryBtnAmp() );
+        table.getColumns().add(actionCol);*/
+         
 		// columns: arguments to utility function are:
 		// title, property, editable, converter (for editing cell)
 		table.getColumns().add(column("Serie", Factura::serieIdProperty, false, null));
@@ -223,7 +221,7 @@ public class FacturasController extends GenericFXController implements Initializ
 		//		.add(column("Total fra", Factura::totfacProperty, false, new BigDecimalStringConverter()));
 
 
-
+             
 
 		table.setItems(facturasList);
 		table.getSelectionModel().selectedItemProperty()
@@ -238,7 +236,7 @@ public class FacturasController extends GenericFXController implements Initializ
 	private void facturaSeleccionada(Factura newValue) {
 		// TODO Auto-generated method stub
 		System.out.println("Factura seleccinada:"+newValue.getId());
-		this.idFactura=newValue.getId();
+		this.getMainApp().setIdFacturaSeleccionada(newValue.getId());
 	}
 
 	private void cargarDatosTabla() {
@@ -246,7 +244,51 @@ public class FacturasController extends GenericFXController implements Initializ
 		facturasList = FXCollections.observableArrayList(model.getAllFacturas(empresaId, ejercicio));
 
 	}
+/*
+	private Callback<TableColumn<Factura, String>, TableCell<Factura, String>> setupCellFactoryBtnAmp () {
+		Callback<TableColumn<Factura, String>, TableCell<Factura, String>> cellFactory = //
+                new Callback<TableColumn<Factura, String>, TableCell<Factura, String>>()
+                {
+                    @Override
+                    public TableCell call( final TableColumn<Factura, String> param )
+                    {
+                        final TableCell<Factura, String> cell = new TableCell<Factura, String>()
+                        {
 
+                            final Button btn = new Button( "Amplia" );
+
+                            @Override
+                            public void updateItem( String item, boolean empty )
+                            {
+                                super.updateItem( item, empty );
+                                if ( empty )
+                                {
+                                    setGraphic( null );
+                                    setText( null );
+                                }
+                                else
+                                {
+                                    btn.setOnAction( (event) ->
+                                            {
+                                                Factura factura = getTableView().getItems().get( getIndex() );
+                                                System.out.println( factura.getId() + "   " + factura.getNomCliente() );
+                                                handleEditFactura(factura.getId() );
+                                                
+                                                
+                                    } );
+                                    setGraphic( btn );
+                                    setText( null );
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+                return cellFactory;
+	}
+	*/
+	
+	
 	@Override
 	public void postInitialize() {
 		empresaId = this.getMainApp().getEmpresa().getId();
@@ -284,32 +326,7 @@ public class FacturasController extends GenericFXController implements Initializ
 			// getMainApp().getRootLayout().setCenter(panel);
 	}
 
-	@FXML
-	private void handleEditFactura(ActionEvent event) {
-					// Load the fxml file and set into the center of the main layout
-		if (this.idFactura > 0) {
-			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/Factura.fxml"));
-			try {
-				AnchorPane panel = (AnchorPane) loader.load();
-				FacturaController controller = loader.getController();
-				controller.setMainApp(getMainApp());
-				controller.setOperacio(FactuApp.EDIT_FACTURA);
-
-				controller.setIdFactura(this.idFactura);
-				getMainApp().getRootLayout().setCenter(panel);
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-			// getMainApp().getRootLayout().setCenter(panel);
-
-
-
-	}
-
+	
 
 	private static <S, T> TableColumn<S, T> column(String title, Function<S, ObservableValue<T>> property,
 			boolean editable, StringConverter<T> converter) {
@@ -322,6 +339,7 @@ public class FacturasController extends GenericFXController implements Initializ
 		}
 		return col;
 }
+
 
 class NumberCell extends TableCell<Factura, BigDecimal> {
 	public NumberCell() {

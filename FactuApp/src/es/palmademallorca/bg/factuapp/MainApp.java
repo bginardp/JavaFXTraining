@@ -1,32 +1,65 @@
 package es.palmademallorca.bg.factuapp;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
+import es.palmademallorca.bg.common.model.IBaseFXApp;
 import es.palmademallorca.bg.common.util.properties.PropertiesCache;
 import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
 import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
-import es.palmademallorca.bg.factuapp.view.ClienteController;
 import es.palmademallorca.bg.factuapp.view.RootLayoutController;
 import javafx.application.Application;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class MainApp extends Application {
+public class MainApp extends Application implements IBaseFXApp {
+	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	// empresa cargada
     private Empresa empresa;
     // ejercicio cargado
     private Ejercicio ejercicio;
-	@Override
+    private Long idFacturaSeleccionada;
+    private static final ProjectInfo projectInfo = new ProjectInfo();
+    
+    
+    private static class ProjectInfo {
+
+		private String version;
+
+
+		public ProjectInfo() {
+
+			InputStream s = getClass().getClassLoader().getResourceAsStream(
+					"META-INF/MANIFEST.MF");
+
+			try {
+				Manifest manifest = new Manifest(s);
+				Attributes attr = manifest.getMainAttributes();
+				version = attr.getValue("Implementation-Version");
+			} catch (Throwable e) {
+				System.out.println("Unable to load project version for ControlsFX "
+				        + "samples project as the manifest file can't be read "
+				        + "or the Implementation-Version attribute is unavailable.");
+				version = "";
+			}
+		}
+
+		public String getVersion() {
+			return version;
+		}
+	}
+
+    
+    
+    @Override
 	public void start(Stage primaryStage) {
 		try {
 			this.primaryStage = primaryStage;
@@ -36,7 +69,7 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -53,7 +86,7 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-            rootLayout.setPrefSize(1024, 700);
+            rootLayout.setPrefSize(1124, 768);
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -115,5 +148,37 @@ public class MainApp extends Application {
 	}
 	public boolean isEmpresaLoaded() {
 		return empresa==null?true:false;
+	}
+
+	@Override
+	public String getApplicationName() {
+		// TODO Auto-generated method stub
+		return "Facturación";
+	}
+
+	@Override
+	public String getApplicationDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getProjectName() {
+		return "Facturación";
+		
+	}
+
+	@Override
+	public String getProjectVersion() {
+		// TODO Auto-generated method stub
+		return projectInfo.getVersion();
+	}
+
+	public Long getIdFacturaSeleccionada() {
+		return idFacturaSeleccionada;
+	}
+
+	public void setIdFacturaSeleccionada(Long idFacturaSeleccionada) {
+		this.idFacturaSeleccionada = idFacturaSeleccionada;
 	}
 }

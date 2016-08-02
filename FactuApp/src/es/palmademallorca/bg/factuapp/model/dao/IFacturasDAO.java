@@ -3,7 +3,10 @@ package es.palmademallorca.bg.factuapp.model.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
+import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
+import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
 public interface IFacturasDAO {
 
@@ -18,6 +21,9 @@ public interface IFacturasDAO {
     public BigDecimal getNewNumeroFactura(Long empresa, Integer ejercicio, String serie);
 
     public List<Factura> getAllFacturas(Long empresa, Integer ejercicio);
+    public List<Cliente> getAllClientes();
+    public List<Formaspago> getAllFormasPago();
+    public List<Producto> getAllProductos();
 
     public List<Factura> findFacturas(Long empresa, Integer ejercicio, String criteria);
 

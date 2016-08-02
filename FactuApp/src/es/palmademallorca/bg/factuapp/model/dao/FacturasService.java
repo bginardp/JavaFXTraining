@@ -34,6 +34,8 @@ import es.palmademallorca.bg.factuapp.model.errors.FactuException;
 import es.palmademallorca.bg.factuapp.model.errors.Messages;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
+import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
+import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
 
 public class FacturasService implements IFacturasDAO {
@@ -185,6 +187,31 @@ public class FacturasService implements IFacturasDAO {
 
 		results = q.getResultList();
 		return results;
+	}
+
+	@Override
+	public List<Cliente> getAllClientes() {
+		// TODO Auto-generated method stub
+		List<Cliente> llista= new ArrayList<>();
+		TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findAll", Cliente.class);
+		llista.addAll(query.getResultList());
+		return llista;
+	}
+
+	@Override
+	public List<Formaspago> getAllFormasPago() {
+		List<Formaspago> llista= new ArrayList<>();
+		TypedQuery<Formaspago> query = em.createNamedQuery("Formaspago.findAll", Formaspago.class);
+		llista.addAll(query.getResultList());
+		return llista;
+	}
+
+	@Override
+	public List<Producto> getAllProductos() {
+		List<Producto> llista= new ArrayList<>();
+		TypedQuery<Producto> query = em.createNamedQuery("Producto.findAll", Producto.class);
+		llista.addAll(query.getResultList());
+		return llista;
 	}
 
 }

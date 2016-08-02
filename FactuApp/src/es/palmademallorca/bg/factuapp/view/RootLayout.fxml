@@ -55,7 +55,8 @@
                <children>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Button fx:id="altaFacturaBtn" mnemonicParsing="false" onAction="#handleFactura" text="Alta Factura" />
+                        <Button fx:id="altaFacturaBtn" mnemonicParsing="false" onAction="#handleAltaFactura" text="Alta Factura" />
+                        <Button fx:id="ampliaFacturaBtn" mnemonicParsing="false" onAction="#handleEditFactura" text="Amplia Factura" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
