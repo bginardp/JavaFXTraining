@@ -18,7 +18,7 @@
 					<img class="profile-img"
 						src="/resources/images/logo.png"
 						alt="">
-					<form class="form-signin" action="LoginServlet" method="post">
+					<form class="form-signin" action="Login" method="post">
 						<input name="txtUserName" type="text" class="form-control" placeholder="Email"	required autofocus>
 						 <input name="txtPass" type="password"	class="form-control" placeholder="Password" required>
 						<button class="btn btn-lg btn-primary btn-block" type="submit">
