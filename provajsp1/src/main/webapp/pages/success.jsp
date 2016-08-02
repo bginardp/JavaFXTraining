@@ -24,7 +24,7 @@ if(name!=null)
  %>
 
 <div>
-<a href="/provajsp1/ListUsersServlet">Llista d'usuaris</a>
+<a href="/provajsp1/ListUsers">Llista d'usuaris</a>
          
 </div>
 

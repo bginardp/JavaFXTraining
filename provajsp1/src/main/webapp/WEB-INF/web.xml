@@ -28,7 +28,7 @@
 
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>LoginServlet</url-pattern>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>HomeServlet</servlet-name>
@@ -36,6 +36,6 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListUsersServlet</servlet-name>
-		<url-pattern>/ListUsersServlet</url-pattern>
+		<url-pattern>/ListUsers</url-pattern>
 	</servlet-mapping>
 </web-app>  
