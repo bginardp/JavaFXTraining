@@ -17,6 +17,7 @@ import es.palmademallorca.bg.factuapp.model.errors.Messages;
 import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
 import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,11 +104,14 @@ public class RootLayoutController extends GenericFXController {
 		// .and(Bindings.isNotEmpty(empresaLabel.textProperty()));
 
 		// facturasButton.disableProperty().bind(boolBind);
+		//BooleanBinding facturaSeleccionada = (this.getMainApp().getIdFacturaSeleccionadaProperty()); 
+		
 		aplicacioL.setText(this.getMainApp().getProjectName() + ": " + this.getMainApp().getProjectVersion());
 		facturasButton.disableProperty().bind(
 				Bindings.or(empresaLabel.textProperty().isEqualTo(""), ejercicioLabel.textProperty().isEqualTo("")));
 		altaFacturaBtn.disableProperty().bind(
 				Bindings.or(empresaLabel.textProperty().isEqualTo(""), ejercicioLabel.textProperty().isEqualTo("")));
+		//ampliaFacturaBtn.disabledProperty().bind(facturaSeleccionada);
 	}
 
 	@FXML
@@ -176,6 +180,7 @@ public class RootLayoutController extends GenericFXController {
 
 			// Give the controller access to the main app
 			FacturaController controller = loader.getController();
+			controller.setOperacio(FactuApp.NEW_FACTURA);
 			controller.setMainApp(getMainApp());
 
 		} catch (IOException e) {
@@ -197,9 +202,10 @@ public class RootLayoutController extends GenericFXController {
 				// AnchorPane node = (AnchorPane) loader.load();
 				getMainApp().getRootLayout().setCenter(node);
 				FacturaController controller = loader.getController();
-				controller.setMainApp(getMainApp());
+				
 				controller.setOperacio(FactuApp.EDIT_FACTURA);
 				controller.setIdFactura(idFact);
+				controller.setMainApp(getMainApp()); // convé desar sempre aquesta linia la darrera per que llança el post initialice
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

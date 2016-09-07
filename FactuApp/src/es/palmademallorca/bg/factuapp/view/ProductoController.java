@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import es.palmademallorca.bg.common.controller.GenericFXController;
 import es.palmademallorca.bg.factuapp.model.dao.IProductosDAO;
 import es.palmademallorca.bg.factuapp.model.dao.ProductosService;
+import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
 import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -208,7 +209,13 @@ public class ProductoController extends GenericFXController {
 		alert.setContentText("Realmente desea eliminar este producto?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			;
+			int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+			// esborra els items de la fila seleccionada
+			Producto seleccionado = tableView.getSelectionModel().getSelectedItem();
+			// borramos fila de la table view
+			tableView.getItems().remove(selectedIndex);
+			// ClienteJPA cliente = em.find(ClienteJPA.class, seleccionado.getId());
+			model.eliminar(seleccionado);
 		}
 	}
 

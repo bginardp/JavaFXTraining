@@ -13,6 +13,8 @@ import es.palmademallorca.bg.factuapp.model.jpa.Ejercicio;
 import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 import es.palmademallorca.bg.factuapp.view.RootLayoutController;
 import javafx.application.Application;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -26,7 +28,8 @@ public class MainApp extends Application implements IBaseFXApp {
     private Empresa empresa;
     // ejercicio cargado
     private Ejercicio ejercicio;
-    private Long idFacturaSeleccionada;
+    private LongProperty idFacturaSeleccionada= new SimpleLongProperty();
+  //  private Long idFacturaSeleccionada;
     private static final ProjectInfo projectInfo = new ProjectInfo();
     
     
@@ -175,10 +178,17 @@ public class MainApp extends Application implements IBaseFXApp {
 	}
 
 	public Long getIdFacturaSeleccionada() {
-		return idFacturaSeleccionada;
+		return idFacturaSeleccionada.getValue();
 	}
 
 	public void setIdFacturaSeleccionada(Long idFacturaSeleccionada) {
+		this.idFacturaSeleccionada.set(idFacturaSeleccionada);
+	}
+
+	public LongProperty getIdFacturaSeleccionadaProperty() {
+		return idFacturaSeleccionada;
+	}
+	public void setIdFacturaSeleccionada(LongProperty idFacturaSeleccionada) {
 		this.idFacturaSeleccionada = idFacturaSeleccionada;
 	}
 }

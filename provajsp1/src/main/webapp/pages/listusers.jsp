@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <html lang="ca">
 <head>
-<title>Llista usuaris</title>
-<jsp:include page="/include/estilos.jsp"></jsp:include>
-<jsp:include page="/include/header.jsp"></jsp:include>
-
+ <jsp:include page="/include/estilos.jsp"></jsp:include>
+ <jsp:include page="/include/header.jsp"></jsp:include>
+ <title>Llista usuaris</title>
 </head>
+
 <body>
+<div class="container">
 	<header>
 		<h1>Llista d'usuaris</h1>
-		<p>Llista d'usuaris de mostra</p>
 	</header>
-	<div class="container">
-		<section>
+	
+		<!--  <section>
 			<form role="form" action="llista" method="POST">
 				<div class="form-group">
 				    <label for="fname">First Name</label>
@@ -23,10 +23,10 @@
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
-		</section>
+		</section> -->
 		<section>
-		<div class="table-responsive">
-			<table class="table table-condensed">
+		
+			<table class="table table-striped table-bordered table-hover" id="emptaula">
 				<tr>
 					<th>Usuari</th>
 					<th>Nom</th>
@@ -46,10 +46,16 @@
 					</tr>
 				</c:forEach>
 			</table>
-		 </div>
-		</section>
-	</div>
 	
+		</section>
+	
+</div> <!-- container -->	
+<jsp:include page="/include/peujs.jsp"></jsp:include>
 </body>
+<script>
+   $(document).ready(function() {
+	  $('#example').DataTable();
+   } );
+</script>
 <footer> Copyright © a-palma.ca </footer>	
 </html>

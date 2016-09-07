@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,11 +19,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import es.palmademallorca.bg.common.util.utils.Utils;
+import es.palmademallorca.bg.factuapp.FactuApp;
+import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -29,6 +34,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * The persistent class for the facturas database table.
@@ -50,6 +57,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private LongProperty id = new SimpleLongProperty();
+	private LongProperty numero = new SimpleLongProperty();
 	private SimpleObjectProperty<BigDecimal> baseirpf = new SimpleObjectProperty();
 	private SimpleObjectProperty<BigDecimal> baseiva1 = new SimpleObjectProperty();
 	private SimpleObjectProperty<BigDecimal> baseiva2 = new SimpleObjectProperty();
@@ -61,9 +69,10 @@ public class Factura implements Serializable {
 	private SimpleObjectProperty<BigDecimal> impbru = new SimpleObjectProperty();
 	private SimpleObjectProperty<BigDecimal> pordto = new SimpleObjectProperty();
 	private SimpleObjectProperty<BigDecimal> impdto = new SimpleObjectProperty();
-	private LongProperty numero = new SimpleLongProperty();
 	private SimpleObjectProperty<BigDecimal> porirpf = new SimpleObjectProperty();
+	private  SimpleObjectProperty<BigDecimal> impirpf=new SimpleObjectProperty(); // transient
 	private SimpleObjectProperty<BigDecimal> poriva1 = new SimpleObjectProperty();
+	private  SimpleObjectProperty<BigDecimal> impiva1=new SimpleObjectProperty(); // transient
 	private SimpleObjectProperty<BigDecimal> poriva2 = new SimpleObjectProperty();
 	private SimpleStringProperty serieId = new SimpleStringProperty();
 	private SimpleObjectProperty<BigDecimal> totfac = new SimpleObjectProperty();
@@ -73,7 +82,8 @@ public class Factura implements Serializable {
 	private SimpleObjectProperty<Serie> serie = new SimpleObjectProperty();
 	private List<Factureslin> factureslins;
 	// bi-directional many-to-one association to Factureslin
-
+	
+	
 	public Factura() {
 	}
 
@@ -216,7 +226,7 @@ public class Factura implements Serializable {
 		return this.serie;
 	}
 
-	@OneToMany(mappedBy = "factura")
+	@OneToMany(mappedBy = "factura", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	public List<Factureslin> getFactureslins() {
 		return this.factureslins;
 	}
@@ -383,6 +393,24 @@ public class Factura implements Serializable {
 	public void setPordto(final java.math.BigDecimal pordto) {
 		this.pordtoProperty().set(pordto);
 	}
+    @Transient
+	public BigDecimal getImpiva1() {
+		return impiva1.getValue();
+	}
+
+    public SimpleObjectProperty<BigDecimal> impiva1Property() {
+		return this.impiva1;
+	}
+    
+    @Transient
+	public BigDecimal getImpirpf() {
+		return impirpf.getValue();
+	}
+
+    public SimpleObjectProperty<BigDecimal> impirpfProperty() {
+		return this.impirpf;
+	}
+
 
 	@Override
 	public String toString() {
@@ -392,6 +420,21 @@ public class Factura implements Serializable {
 				+ impbru.get() + ", pordto=" + pordto.get() + ", impdto=" + impdto.get() + ", numero=" + numero.get()
 				+ ", porirpf=" + porirpf.get() + ", poriva1=" + poriva1.get() + ", poriva2=" + poriva2.get()
 				+ ", serieId=" + serieId.get() + ", totfac=" + totfac.get() + ", cliente=" + cliente.getName() + "]";
+	}
+	
+	@PostLoad
+	 protected void initTransientAttributes() {
+		BigDecimal imp;
+		if (poriva1!=null && baseiva1!=null) {
+			imp=(poriva1.getValue().multiply(baseiva1.getValue())).divide(FactuApp.CIEN);
+			impiva1.set(Utils.round(imp.doubleValue(),3));
+		}
+		else impiva1.set(new BigDecimal(FactuApp.CERO));
+		if (porirpf!=null && baseirpf!=null) {
+			imp=(porirpf.getValue().multiply(baseirpf.getValue())).divide(FactuApp.CIEN);
+			impirpf.set(Utils.round(imp.doubleValue(),3));
+		}
+		else impirpf.set(new BigDecimal(FactuApp.CERO));
 	}
 
 }

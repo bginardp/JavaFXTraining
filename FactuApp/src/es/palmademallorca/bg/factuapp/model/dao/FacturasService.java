@@ -1,18 +1,10 @@
 package es.palmademallorca.bg.factuapp.model.dao;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -21,19 +13,18 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
-
-import es.palmademallorca.bg.common.model.dao.AbstractJpaDao;
 import es.palmademallorca.bg.common.util.dateutils.DateUtil;
 import es.palmademallorca.bg.factuapp.model.errors.FactuException;
 import es.palmademallorca.bg.factuapp.model.errors.Messages;
 import es.palmademallorca.bg.factuapp.model.jpa.Cliente;
+import es.palmademallorca.bg.factuapp.model.jpa.Empresa;
 import es.palmademallorca.bg.factuapp.model.jpa.Factura;
+import es.palmademallorca.bg.factuapp.model.jpa.Factureslin;
 import es.palmademallorca.bg.factuapp.model.jpa.Formaspago;
 import es.palmademallorca.bg.factuapp.model.jpa.Producto;
 
@@ -48,7 +39,17 @@ public class FacturasService implements IFacturasDAO {
 
 	@Override
 	public Factura getFacturaPorId(Long id) {
-		return em.find(Factura.class, id);
+		Factura fila= em.find(Factura.class, id);
+		Cliente cliente = fila.getCliente();
+		Empresa empresa = fila.getEmpresa();
+		System.out.println("######## getFacturaPorId Datos factura:" + fila);
+		System.out.println("######## getFacturaPorId Datos cliente:" + cliente.getNom() + " Datos Empresa:" + empresa.getDem()+ " " + fila.getFactureslins().size());
+		List<Factureslin> lista2 = fila.getFactureslins();
+		for (Factureslin lin : lista2) {
+			// Producto producto = lin.getProducto();
+			System.out.println("####### getFacturaPorId Datos detalle factura:" + lin.toString());
+		}
+		return fila;
 	}
 
 	@Override
@@ -201,7 +202,7 @@ public class FacturasService implements IFacturasDAO {
 	@Override
 	public List<Formaspago> getAllFormasPago() {
 		List<Formaspago> llista= new ArrayList<>();
-		TypedQuery<Formaspago> query = em.createNamedQuery("Formaspago.findAll", Formaspago.class);
+		TypedQuery<Formaspago> query = em.createNamedQuery("Forpag.findAll", Formaspago.class);
 		llista.addAll(query.getResultList());
 		return llista;
 	}

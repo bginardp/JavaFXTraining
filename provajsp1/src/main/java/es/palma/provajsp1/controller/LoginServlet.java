@@ -17,7 +17,7 @@ import es.palma.provajsp1.entities.UserBean;
  * Servlet implementation class ProvaServlet
  */
 
-@WebServlet(name="LoginServlet", urlPatterns={"/LoginServlet"})
+@WebServlet(name="LoginServlet", urlPatterns={"/Login"})
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         
         if (usuari.isValid()) {
         	System.out.println("################################## LoginServlet Success ###################################");
-              RequestDispatcher rd=request.getRequestDispatcher("/pages/success.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("/pages/success.jsp");
             request.setAttribute("uname", usuari.getNomComplet());
             rd.forward(request, response);
         }
